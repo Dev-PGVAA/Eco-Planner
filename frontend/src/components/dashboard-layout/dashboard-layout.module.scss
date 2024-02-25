@@ -1,0 +1,10 @@
+@import 'src/config/colors.config';
+
+.aside {
+	@apply h-screen w-fit flex flex-col justify-between;
+	background: var(--bg-2);
+	border-right: 1px solid rgba(var(--line-rgb), 0.2);
+	> div > a {
+		border-bottom: 1px solid rgba(var(--line-rgb), 0.2);
+	}
+}

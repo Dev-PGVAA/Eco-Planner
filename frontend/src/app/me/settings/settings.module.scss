@@ -1,0 +1,5 @@
+@import 'src/config/colors.config';
+
+.link {
+	@apply block w-3/5 my-3 py-2 px-5 bg-[var(--bg-2)] rounded-lg hover:bg-[var(--bg-hover)] duration-300;
+}

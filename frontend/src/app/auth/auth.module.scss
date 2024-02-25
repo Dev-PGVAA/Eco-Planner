@@ -1,0 +1,136 @@
+@import 'src/config/colors.config';
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;500;700&display=swap');
+
+.auth {
+	@apply h-[120vh] w-screen grid;
+	overflow-y: hidden;
+	grid-template-columns: 396px auto;
+	aside {
+		@apply bg-[var(--bg-auth-page)] w-full;
+		border-right: 2px solid rgba(var(--line-rgb), 0.2);
+		z-index: 100;
+		> div {
+			@apply absolute top-1/2 mx-6 w-fit;
+			transform: translateY(-50%);
+			> div {
+				@apply mb-3;
+			}
+		}
+		h1 {
+			@apply text-2xl mb-2 cursor-default;
+			font-family: 'Teko';
+			span {
+				@apply text-[#49ca81] font-bold;
+				text-transform: uppercase;
+			}
+		}
+		h3 {
+			@apply text-xl mt-3 cursor-default;
+		}
+		span {
+			@apply text-[#ffffff7a] cursor-default;
+		}
+
+		/* FORM */
+		.form {
+			p {
+				@apply text-[#ffffff7a] text-sm mb-1 cursor-default;
+			}
+			.input {
+				@apply rounded-lg bg-[var(--bg)] w-full h-8 mb-5 text-sm;
+				outline: 2px solid rgba(var(--line-rgb), 0.2);
+				padding-left: 10px;
+				&:active,
+				&:focus {
+					outline: 2px solid rgba(var(--line-rgb), 0.4);
+				}
+				&::placeholder {
+					color: rgba(var(--line-rgb), 0.6);
+				}
+			}
+			i {
+				@apply cursor-pointer;
+			}
+			button {
+				@apply bg-[#1f57df] w-full rounded-lg h-7 text-[#fefefe];
+			}
+		}
+
+		button {
+			@apply text-sm text-[#ffffff7a] mt-3;
+		}
+	}
+}
+.forgotPassword {
+	@apply w-fit pb-[10px] cursor-pointer;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+.aboutUsText {
+	margin: 5%;
+	h2 {
+		@apply text-5xl font-['Teko'];
+	}
+	p {
+		@apply mt-4 text-3xl max-w-[80%] text-[#898f9b];
+		b {
+			@apply text-[#fefefe];
+		}
+	}
+}
+.circle {
+	position: absolute;
+
+	background: #333;
+	border: 3px solid #fff;
+	border-radius: 50%;
+	opacity: 0.3;
+
+	filter: blur(4px);
+}
+.circle1 {
+	width: 300px;
+	height: 300px;
+	left: 87vw;
+	top: -90px;
+}
+.circle2 {
+	width: 150px;
+	height: 150px;
+	right: 40vw;
+	bottom: -90px;
+}
+.circle3 {
+	width: 200px;
+	height: 200px;
+	left: 74vw;
+	top: 400px;
+}
+.circle4 {
+	width: 500px;
+	height: 500px;
+	left: 15vw;
+	top: -90px;
+}
+@media (min-width: 1800px) {
+	.aboutUsText {
+		p {
+			@apply text-3xl max-w-[60%];
+		}
+	}
+}
+@media (max-width: 1500px) {
+	.aboutUsText {
+		p {
+			@apply text-2xl max-w-[80%];
+		}
+	}
+}
+@media (max-width: 1024px) {
+	.aboutUsText {
+		p {
+			@apply text-xl max-w-[95%];
+		}
+	}
+}

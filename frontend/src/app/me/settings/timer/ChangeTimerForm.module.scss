@@ -1,0 +1,25 @@
+@import 'src/config/colors.config';
+
+.form {
+	@apply w-2/5 mx-auto;
+	p {
+		@apply text-xl mb-2 cursor-default;
+		color: rgba(var(--line), 0.5);
+	}
+	.input {
+		@apply rounded-lg w-full h-12 mb-5 text-xl;
+		background: var(--bg-2);
+		outline: 2px solid rgba(var(--line), 0.2);
+		padding-left: 20px;
+		&:active,
+		&:focus {
+			outline: 2px solid #525a76;
+		}
+		&::placeholder {
+			color: rgba(var(--line), 0.5);
+		}
+	}
+	button {
+		@apply bg-[#1f57df] w-full rounded-lg h-10 mt-5 text-[#fefefe];
+	}
+}

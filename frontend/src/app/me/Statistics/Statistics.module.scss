@@ -1,0 +1,5 @@
+@import 'src/config/colors.config';
+.statisticCard {
+	@apply rounded p-layout text-center transition-transform cursor-default hover:-translate-y-3 duration-500;
+	background: var(--bg-2);
+}

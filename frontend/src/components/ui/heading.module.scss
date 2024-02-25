@@ -1,0 +1,6 @@
+@import 'src/config/colors.config';
+
+.line {
+	@apply my-3 h-0.5 w-full;
+	background: rgba(var(--line-rgb), 0.12);
+}

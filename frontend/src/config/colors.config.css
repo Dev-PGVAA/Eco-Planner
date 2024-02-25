@@ -1,0 +1,21 @@
+#body[data-theme='dark'] {
+	--bg: #0e0f0f;
+	--bg-2: #141515;
+	--fg: #fefefe;
+	--line-rgb: 255, 255, 255;
+	--line-task: #2b2c2c;
+	--bg-hover: #ffffff2a;
+	--bg-task-hover: #1c1f1f;
+	--bg-auth-page: #020202;
+}
+
+#body[data-theme='light'] {
+	--bg: #e6e6e6;
+	--bg-2: #b5b5b5;
+	--fg: #0e0f0f;
+	--line-rgb: 0, 0, 0;
+	--line-task: #cacaca;
+	--bg-hover: #00000020;
+	--bg-task-hover: #bdc2b5;
+	--bg-auth-page: #828282;
+}
