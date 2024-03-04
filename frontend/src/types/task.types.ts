@@ -8,10 +8,21 @@ export enum EnumTaskPriority {
 	critical = 'critical'
 }
 
-export interface ITaskResponse extends IBase {
+export interface ITaskTimeManagementResponse extends IBase {
 	name: string
 	priority?: EnumTaskPriority
 	isCompleted: boolean
 }
 
-export type TypeTaskFormState = Partial<Omit<ITaskResponse, 'id' | 'updatedAt'>>
+export interface ITaskTodoResponse extends IBase {
+	name: string
+	order: number
+	isCompleted: boolean
+}
+
+export type TypeTaskFormState = Partial<
+	Omit<ITaskTimeManagementResponse, 'id' | 'updatedAt'>
+>
+export type TypeTaskTodoFormState = Partial<
+	Omit<ITaskTodoResponse, 'id' | 'updatedAt'>
+>

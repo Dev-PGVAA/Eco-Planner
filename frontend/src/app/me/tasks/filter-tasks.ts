@@ -2,15 +2,18 @@ import dayjs from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 
-import type { ITaskResponse } from '@/types/task.types'
+import type {
+	ITaskTimeManagementResponse,
+	ITaskTodoResponse
+} from '@/types/task.types'
 
 import { FILTERS } from './columns.data'
 
 dayjs.extend(isSameOrAfter)
 dayjs.extend(isSameOrBefore)
 
-export const filterTasks = (
-	tasks: ITaskResponse[] | undefined,
+export const filterTasksByTime = (
+	tasks: ITaskTimeManagementResponse[] | undefined,
 	value: string
 ) => {
 	switch (value) {
@@ -59,4 +62,8 @@ export const filterTasks = (
 		default:
 			return []
 	}
+}
+
+export const filterTasksByOrder = (tasks: ITaskTodoResponse[] | undefined) => {
+	return tasks?.sort((a, b) => a.order - b.order)
 }

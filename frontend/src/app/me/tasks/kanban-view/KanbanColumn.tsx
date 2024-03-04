@@ -1,10 +1,10 @@
 import { Draggable, Droppable } from '@hello-pangea/dnd'
 import type { Dispatch, SetStateAction } from 'react'
 
-import type { ITaskResponse } from '@/types/task.types'
+import type { ITaskTimeManagementResponse } from '@/types/task.types'
 
 import { FILTERS } from '../columns.data'
-import { filterTasks } from '../filter-tasks'
+import { filterTasksByTime } from '../filter-tasks'
 
 import { KanbanAddCardInput } from './KanbanAddCardInput'
 import { KanbanCard } from './KanbanCard'
@@ -13,8 +13,8 @@ import styles from './KanbanView.module.scss'
 interface IKanbanColumn {
 	value: string
 	label: string
-	items: ITaskResponse[] | undefined
-	setItems: Dispatch<SetStateAction<ITaskResponse[] | undefined>>
+	items: ITaskTimeManagementResponse[] | undefined
+	setItems: Dispatch<SetStateAction<ITaskTimeManagementResponse[] | undefined>>
 }
 
 export function KanbanColumn({ value, items, label, setItems }: IKanbanColumn) {
@@ -28,7 +28,7 @@ export function KanbanColumn({ value, items, label, setItems }: IKanbanColumn) {
 					<div className={styles.column}>
 						<div className={styles.columnHeading}>{label}</div>
 
-						{filterTasks(items, value)?.map((item, index) => (
+						{filterTasksByTime(items, value)?.map((item, index) => (
 							<Draggable
 								key={item.id}
 								draggableId={item.id}

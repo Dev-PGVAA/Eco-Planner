@@ -3,15 +3,15 @@
 import { DragDropContext } from '@hello-pangea/dnd'
 
 import { COLUMNS } from '../columns.data'
-import { useTaskDnd } from '../hooks/useTaskDnd'
-import { useTasks } from '../hooks/useTasks'
+import { useTaskTimeManagementDnd } from '../hooks/useTaskDnd'
+import { useTaskTimeManagement } from '../hooks/useTasks'
 
 import { ListRowParent } from './ListRowParent'
 import styles from './ListView.module.scss'
 
 export function ListView() {
-	const { items, setItems } = useTasks()
-	const { onDragEnd } = useTaskDnd()
+	const { items, setItems } = useTaskTimeManagement()
+	const { onDragEnd } = useTaskTimeManagementDnd()
 
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>

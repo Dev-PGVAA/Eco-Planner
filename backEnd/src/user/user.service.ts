@@ -26,7 +26,19 @@ export class UserService {
 		const profile = await this.getById(id)
 
 		const totalTasks = profile.tasks.length
-		const completedTasks = await this.prisma.task.count({
+		const completedTasks = await this.prisma.taskTimeManagement.count({
+			where: {
+				userId: id,
+				isCompleted: true
+			}
+		})
+
+		const todo = await this.prisma.taskTodo.count({
+			where: {
+				userId: id
+			}
+		})
+		const completedTodo = await this.prisma.taskTodo.count({
 			where: {
 				userId: id,
 				isCompleted: true
@@ -36,7 +48,7 @@ export class UserService {
 		const todayStart = startOfDay(new Date())
 		const weekStart = startOfDay(subDays(new Date(), 7))
 
-		const todayTasks = await this.prisma.task.count({
+		const todayTasks = await this.prisma.taskTimeManagement.count({
 			where: {
 				userId: id,
 				createdAt: {
@@ -45,7 +57,7 @@ export class UserService {
 			}
 		})
 
-		const weekTasks = await this.prisma.task.count({
+		const weekTasks = await this.prisma.taskTimeManagement.count({
 			where: {
 				userId: id,
 				createdAt: {
@@ -59,8 +71,8 @@ export class UserService {
 		return {
 			user: rest,
 			statistics: [
-				{ label: 'Total tasks', value: totalTasks },
-				{ label: 'Completed tasks', value: completedTasks },
+				{ label: 'Total tasks', value: totalTasks + todo },
+				{ label: 'Completed tasks', value: completedTasks + completedTodo },
 				{ label: 'Today tasks', value: todayTasks },
 				{ label: 'Week tasks', value: weekTasks }
 			]

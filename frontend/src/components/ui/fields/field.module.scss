@@ -1,0 +1,20 @@
+@import 'src/config/colors.config';
+
+.field {
+	label {
+		color: rgba(var(--line-rgb), 0.6);
+	}
+	input {
+		border-color: rgba(var(--line-rgb), 0.12);
+		&::placeholder {
+			color: rgba(var(--line-rgb), 0.3);
+		}
+	}
+}
+
+.transparentField {
+	max-width: 98%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

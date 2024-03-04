@@ -9,6 +9,8 @@ import { IAuthForm } from '@/types/auth.types'
 
 import { DASHBOARD_PAGES } from '@/config/pages-url.config'
 
+import { errorCatch } from '@/api/error'
+
 import styles from '../auth.module.scss'
 
 import { authService } from '@/services/auth.service'
@@ -36,8 +38,8 @@ const loginForm: FC = () => {
 			reset()
 			push(DASHBOARD_PAGES.HOME)
 		},
-		onError() {
-			setError('Invalid email or password!')
+		onError(error) {
+			setError(errorCatch(error))
 		}
 	})
 
@@ -74,7 +76,11 @@ const loginForm: FC = () => {
 					className='absolute -translate-x-8 translate-y-1'
 					onClick={() => ShowPassword()}
 				>
-					{isShowPassword === 'password' ? <EyeOff /> : <Eye />}
+					{isShowPassword === 'password' ? (
+						<EyeOff stroke='#828282' />
+					) : (
+						<Eye stroke='#828282' />
+					)}
 				</i>
 			</span>
 			<p className={styles.forgotPassword}>Forgot Password?</p>

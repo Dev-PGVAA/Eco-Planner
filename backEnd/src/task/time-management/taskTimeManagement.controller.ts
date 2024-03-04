@@ -12,12 +12,12 @@ import {
 } from '@nestjs/common'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { CurrentUser } from 'src/auth/decorators/user.decorator'
-import { TaskDto } from './dto/task.dto'
-import { TaskService } from './task.service'
+import { TaskTimeManagementDto } from './dto/taskTimeManagement.dto'
+import { TaskTimeManagementService } from './taskTimeManagement.service'
 
-@Controller('user/tasks')
-export class TaskController {
-	constructor(private readonly taskService: TaskService) {}
+@Controller('user/tasks/time-management')
+export class TaskTimeManagementController {
+	constructor(private readonly taskService: TaskTimeManagementService) {}
 
 	@Get()
 	@Auth()
@@ -29,7 +29,10 @@ export class TaskController {
 	@HttpCode(200)
 	@Post()
 	@Auth()
-	async create(@Body() dto: TaskDto, @CurrentUser('id') userId: string) {
+	async create(
+		@Body() dto: TaskTimeManagementDto,
+		@CurrentUser('id') userId: string
+	) {
 		return this.taskService.create(dto, userId)
 	}
 
@@ -38,7 +41,7 @@ export class TaskController {
 	@Put(':id')
 	@Auth()
 	async update(
-		@Body() dto: TaskDto,
+		@Body() dto: TaskTimeManagementDto,
 		@CurrentUser('id') userId: string,
 		@Param('id') id: string
 	) {

@@ -9,80 +9,79 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  email    String  @unique
-  name     String?
-  password String
-
-  breakInterval  Int? @default(10) @map("break_interval")
-  intervalsCount Int? @default(7) @map("intervals_count")
-  workInterval   Int? @default(50) @map("work_interval")
-
-  tasks          Task[]
-  time_blocks    TimeBlock[]
-  timer_sessions TimerSession[]
+  id             String               @id @default(uuid())
+  createdAt      DateTime             @default(now()) @map("created_at")
+  updatedAt      DateTime             @updatedAt @map("updated_at")
+  email          String               @unique
+  name           String?
+  password       String
+  breakInterval  Int?                 @default(10) @map("break_interval")
+  intervalsCount Int?                 @default(7) @map("intervals_count")
+  workInterval   Int?                 @default(50) @map("work_interval")
+  tasks          TaskTimeManagement[]
+  todo           TaskTodo[]
+  timeBlocks     TimeBlock[]
+  timerSessions  TimerSession[]
 
   @@map("user")
 }
 
-model Task {
-  id String @id @default(uuid())
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
+model TaskTimeManagement {
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
   name        String
   isCompleted Boolean?  @default(false) @map("is_completed")
   userId      String    @map("user_id")
   priority    Priority?
+  user        User      @relation(fields: [userId], references: [id])
 
-  user User @relation(fields: [userId], references: [id])
+  @@map("task_time_management")
+}
 
-  @@map("task")
+model TaskTodo {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  name        String
+  isCompleted Boolean? @default(false) @map("is_completed")
+  userId      String   @map("user_id")
+  order       Int      @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@map("task_todo")
 }
 
 model TimeBlock {
-  id String @id @default(uuid())
-
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-
-  name     String
-  color    String?
-  duration Int
-  order    Int     @default(1)
-  userId   String  @map("user_id")
-
-  user User @relation(fields: [userId], references: [id])
+  name      String
+  color     String?
+  duration  Int
+  order     Int      @default(1)
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("time_block")
 }
 
 model TimerSession {
-  id String @id @default(uuid())
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
+  id          String       @id @default(uuid())
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
   isCompleted Boolean?     @default(false) @map("is_completed")
   userId      String       @map("user_id")
   rounds      TimerRound[]
-
-  user User @relation(fields: [userId], references: [id])
+  user        User         @relation(fields: [userId], references: [id])
 
   @@map("timer_session")
 }
 
 model TimerRound {
-  id String @id @default(uuid())
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
+  id             String       @id @default(uuid())
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
   totalSeconds   Int          @map("total_seconds")
   isCompleted    Boolean?     @default(false) @map("is_completed")
   timerSessionId String       @map("timer_session_id")

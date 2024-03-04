@@ -25,7 +25,7 @@ const Checkbox = (props: {
 			type='checkbox'
 			className={`defaultCheckbox relative inline-flex h-[20px] min-h-[20px] w-[20px] min-w-[20px] appearance-none items-center
       justify-center rounded-md border border-gray-300 text-white/0 outline-none transition ease-linear
-      checked:border-none checked:text-white hover:cursor-pointer dark:border-white/10 ${
+      checked:border-none checked:text-white hover:cursor-pointer ${
 				color === 'red'
 					? 'checked:border-none checked:bg-red-500 dark:checked:bg-red-400'
 					: color === 'blue'

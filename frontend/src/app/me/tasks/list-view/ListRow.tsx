@@ -8,16 +8,19 @@ import { TransparentField } from '@/components/ui/fields/TransparentField'
 import { SingleSelect } from '@/components/ui/task-edit/SingleSelect'
 import { DatePicker } from '@/components/ui/task-edit/date-picker/DatePicker'
 
-import type { ITaskResponse, TypeTaskFormState } from '@/types/task.types'
+import type {
+	ITaskTimeManagementResponse,
+	TypeTaskFormState
+} from '@/types/task.types'
 
-import { useDeleteTask } from '../hooks/useDeleteTask'
-import { useTaskDebounce } from '../hooks/useTaskDebounce'
+import { useDeleteTaskTimeManagement } from '../hooks/useDeleteTask'
+import { useTaskTimeManagementDebounce } from '../hooks/useTaskDebounce'
 
 import styles from './ListView.module.scss'
 
 interface IListRow {
-	item: ITaskResponse
-	setItems: Dispatch<SetStateAction<ITaskResponse[] | undefined>>
+	item: ITaskTimeManagementResponse
+	setItems: Dispatch<SetStateAction<ITaskTimeManagementResponse[] | undefined>>
 }
 
 export function ListRow({ item, setItems }: IListRow) {
@@ -30,9 +33,10 @@ export function ListRow({ item, setItems }: IListRow) {
 		}
 	})
 
-	useTaskDebounce({ watch, itemId: item.id })
+	useTaskTimeManagementDebounce({ watch, itemId: item.id })
 
-	const { deleteTask, isDeletePending } = useDeleteTask()
+	const { deleteTaskTimeManagement, isDeletePending } =
+		useDeleteTaskTimeManagement()
 
 	return (
 		<div
@@ -62,7 +66,7 @@ export function ListRow({ item, setItems }: IListRow) {
 					<TransparentField {...register('name')} />
 				</span>
 			</div>
-			<div>
+			<div className={styles.date}>
 				<Controller
 					control={control}
 					name='createdAt'
@@ -74,7 +78,7 @@ export function ListRow({ item, setItems }: IListRow) {
 					)}
 				/>
 			</div>
-			<div className='capitalize'>
+			<div className={styles.capitalize}>
 				<Controller
 					control={control}
 					name='priority'
@@ -95,7 +99,9 @@ export function ListRow({ item, setItems }: IListRow) {
 			<div>
 				<button
 					onClick={() =>
-						item.id ? deleteTask(item.id) : setItems(prev => prev?.slice(0, -1))
+						item.id
+							? deleteTaskTimeManagement(item.id)
+							: setItems(prev => prev?.slice(0, -1))
 					}
 					className='opacity-50 transition-opacity hover:opacity-100'
 				>

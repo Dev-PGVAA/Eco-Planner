@@ -1,6 +1,8 @@
 import cn from 'clsx'
 import { type InputHTMLAttributes, forwardRef } from 'react'
 
+import styles from './field.module.scss'
+
 type TypeTransparentField = InputHTMLAttributes<HTMLInputElement>
 
 export const TransparentField = forwardRef<
@@ -11,7 +13,8 @@ export const TransparentField = forwardRef<
 		<input
 			className={cn(
 				'bg-transparent border-none focus:outline-0 focus:shadow-transparent w-full',
-				className
+				className,
+				styles.transparentField
 			)}
 			ref={ref}
 			{...rest}

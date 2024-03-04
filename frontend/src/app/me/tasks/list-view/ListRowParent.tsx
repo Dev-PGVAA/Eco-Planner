@@ -1,10 +1,10 @@
 import { Draggable, Droppable } from '@hello-pangea/dnd'
 import type { Dispatch, SetStateAction } from 'react'
 
-import type { ITaskResponse } from '@/types/task.types'
+import type { ITaskTimeManagementResponse } from '@/types/task.types'
 
 import { FILTERS } from '../columns.data'
-import { filterTasks } from '../filter-tasks'
+import { filterTasksByTime } from '../filter-tasks'
 
 import { ListAddRowInput } from './ListAddRowInput'
 import { ListRow } from './ListRow'
@@ -13,8 +13,8 @@ import styles from './ListView.module.scss'
 interface IListRowParent {
 	value: string
 	label: string
-	items: ITaskResponse[] | undefined
-	setItems: Dispatch<SetStateAction<ITaskResponse[] | undefined>>
+	items: ITaskTimeManagementResponse[] | undefined
+	setItems: Dispatch<SetStateAction<ITaskTimeManagementResponse[] | undefined>>
 }
 
 export function ListRowParent({
@@ -34,7 +34,7 @@ export function ListRowParent({
 						<div className='w-full'>{label}</div>
 					</div>
 
-					{filterTasks(items, value)?.map((item, index) => (
+					{filterTasksByTime(items, value)?.map((item, index) => (
 						<Draggable
 							key={item.id}
 							draggableId={item.id}

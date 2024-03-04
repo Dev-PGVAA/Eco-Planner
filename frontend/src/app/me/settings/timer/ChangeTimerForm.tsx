@@ -7,6 +7,7 @@ import { TypeUserForm } from '@/types/auth.types'
 
 import { useInitialData } from '../(hooks)/useInitialData'
 import { useUpdateSettings } from '../(hooks)/useUpdateSettings'
+import { GoBack } from '../GoBack'
 
 import styles from './ChangeTimerForm.module.scss'
 
@@ -36,43 +37,46 @@ export function ChangeTimerForm() {
 	}
 
 	return (
-		<form
-			className={styles.form}
-			onSubmit={handleSubmit(onSubmit)}
-		>
-			<p>Work interval (min.): </p>
-			<input
-				type='number'
-				className={styles.input}
-				placeholder='Enter work interval (min.): '
-				{...register('workInterval', {
-					valueAsNumber: true
-				})}
-			/>
-			<p>Break interval (min.): </p>
-			<input
-				type='number'
-				className={styles.input}
-				placeholder='Enter break interval (min.): '
-				{...register('breakInterval', {
-					valueAsNumber: true
-				})}
-			/>
-			<p>Intervals count (max 10): </p>
-			<input
-				type='number'
-				className={styles.input}
-				placeholder='Enter intervals count (max 10): '
-				{...register('intervalsCount', {
-					valueAsNumber: true
-				})}
-			/>
-			<button
-				type='submit'
-				disabled={isPending}
+		<>
+			<GoBack />
+			<form
+				className={styles.form}
+				onSubmit={handleSubmit(onSubmit)}
 			>
-				Save
-			</button>
-		</form>
+				<p>Work interval (min.): </p>
+				<input
+					type='number'
+					className={styles.input}
+					placeholder='Enter work interval (min.): '
+					{...register('workInterval', {
+						valueAsNumber: true
+					})}
+				/>
+				<p>Break interval (min.): </p>
+				<input
+					type='number'
+					className={styles.input}
+					placeholder='Enter break interval (min.): '
+					{...register('breakInterval', {
+						valueAsNumber: true
+					})}
+				/>
+				<p>Intervals count (max 10): </p>
+				<input
+					type='number'
+					className={styles.input}
+					placeholder='Enter intervals count (max 10): '
+					{...register('intervalsCount', {
+						valueAsNumber: true
+					})}
+				/>
+				<button
+					type='submit'
+					disabled={isPending}
+				>
+					Save
+				</button>
+			</form>
+		</>
 	)
 }

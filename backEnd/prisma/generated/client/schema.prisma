@@ -9,23 +9,24 @@ datasource db {
 }
 
 model User {
-  id             String         @id @default(uuid())
-  createdAt      DateTime       @default(now()) @map("created_at")
-  updatedAt      DateTime       @updatedAt @map("updated_at")
-  email          String         @unique
+  id             String               @id @default(uuid())
+  createdAt      DateTime             @default(now()) @map("created_at")
+  updatedAt      DateTime             @updatedAt @map("updated_at")
+  email          String               @unique
   name           String?
   password       String
-  breakInterval  Int?           @default(10) @map("break_interval")
-  intervalsCount Int?           @default(7) @map("intervals_count")
-  workInterval   Int?           @default(50) @map("work_interval")
-  tasks          Task[]
-  time_blocks    TimeBlock[]
-  timer_sessions TimerSession[]
+  breakInterval  Int?                 @default(10) @map("break_interval")
+  intervalsCount Int?                 @default(7) @map("intervals_count")
+  workInterval   Int?                 @default(50) @map("work_interval")
+  tasks          TaskTimeManagement[]
+  todo           TaskTodo[]
+  timeBlocks     TimeBlock[]
+  timerSessions  TimerSession[]
 
   @@map("user")
 }
 
-model Task {
+model TaskTimeManagement {
   id          String    @id @default(uuid())
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
@@ -35,7 +36,20 @@ model Task {
   priority    Priority?
   user        User      @relation(fields: [userId], references: [id])
 
-  @@map("task")
+  @@map("task_time_management")
+}
+
+model TaskTodo {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  name        String
+  isCompleted Boolean? @default(false) @map("is_completed")
+  userId      String   @map("user_id")
+  order       Int      @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@map("task_todo")
 }
 
 model TimeBlock {
@@ -77,9 +91,9 @@ model TimerRound {
 }
 
 enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
-  CRITICAL
+  low
+  medium
+  high
+  urgent
+  critical
 }

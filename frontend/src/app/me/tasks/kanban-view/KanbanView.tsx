@@ -3,15 +3,15 @@
 import { DragDropContext } from '@hello-pangea/dnd'
 
 import { COLUMNS } from '../columns.data'
-import { useTaskDnd } from '../hooks/useTaskDnd'
-import { useTasks } from '../hooks/useTasks'
+import { useTaskTimeManagementDnd } from '../hooks/useTaskDnd'
+import { useTaskTimeManagement } from '../hooks/useTasks'
 
 import { KanbanColumn } from './KanbanColumn'
 import styles from './KanbanView.module.scss'
 
 export function KanbanView() {
-	const { items, setItems } = useTasks()
-	const { onDragEnd } = useTaskDnd()
+	const { items, setItems } = useTaskTimeManagement()
+	const { onDragEnd } = useTaskTimeManagementDnd()
 
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>

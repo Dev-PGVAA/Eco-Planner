@@ -1,6 +1,10 @@
 @import 'src/config/colors.config';
 
 .table {
+	* {
+		@apply duration-150;
+	}
+
 	@apply w-full;
 
 	.header {
@@ -30,6 +34,9 @@
 				@apply font-semibold text-xl py-3;
 			}
 		}
+		.capitalize > div > div {
+			background: var(--bg-switcher);
+		}
 
 		.addRow {
 			@apply py-2 px-4 border-t border-[var(--line-task)];
@@ -37,6 +44,10 @@
 
 		.row {
 			@apply font-normal grid grid-cols-[1.4fr_.4fr_.4fr_.1fr] relative;
+
+			.date > div > div {
+				background: var(--bg-switcher);
+			}
 
 			&.completed {
 				> div > span > input {

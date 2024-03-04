@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react'
+
 import Loader from '@/components/ui/Loader'
 
 import { useLocalStorage } from '@/hooks/useLocalStorage'
@@ -7,10 +9,11 @@ import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { SwitcherView } from './SwitcherView'
 import { KanbanView } from './kanban-view/KanbanView'
 import { ListView } from './list-view/ListView'
+import { TodoView } from './todo/TodoView'
 
-export type TypeView = 'list' | 'kanban'
+export type TypeView = 'list' | 'kanban' | 'todo'
 
-export function TasksView() {
+function TasksView() {
 	const [type, setType, isLoading] = useLocalStorage<TypeView>({
 		key: 'view-type',
 		defaultValue: 'list'
@@ -24,7 +27,11 @@ export function TasksView() {
 				setType={setType}
 				type={type}
 			/>
-			{type === 'list' ? <ListView /> : <KanbanView />}
+			{type === 'list' && <ListView />}
+			{type === 'kanban' && <KanbanView />}
+			{type === 'todo' && <TodoView />}
 		</div>
 	)
 }
+
+export default React.memo(TasksView)

@@ -5,16 +5,15 @@
 @tailwind utilities;
 
 html {
-	scrollbar-color: #383838 var(--bg-2);
 	height: 100vh;
-	width: 100vw;
+	width: 100%;
 }
 
 body {
 	@apply text-base overflow-hidden;
-	font-family: var(--font-zen), sans-serif;
 	color: var(--fg);
 	background-color: var(--bg);
+	font-family: var(--font-zen), sans-serif;
 
 	@media (max-width: 1200px) {
 		font-size: 16px;
@@ -24,16 +23,12 @@ body {
 		font-size: 14px;
 	}
 }
-
-// svg {
-// 	stroke: var(--svg);
-// }
-// svg:hover {
-// 	stroke: var(--svg-hover);
-// }
-
-input.defaultCheckbox {
-	color: var(--fg);
+* {
+	scrollbar-color: var(--scroll) var(--bg-2);
+	&::selection {
+		background-color: rgba(var(--line-rgb), 0.4);
+		color: var(--fg);
+	}
 }
 
 input.defaultCheckbox::before {
@@ -93,5 +88,10 @@ input[type='number'] {
 
 	to {
 		opacity: 1;
+	}
+}
+@media (prefers-color-scheme: dark) {
+	.dark\:border-white\/10 {
+		border: 1px solid rgba(0, 0, 0, 0.2);
 	}
 }

@@ -1,0 +1,14 @@
+@import 'src/config/colors.config';
+
+.button {
+	@apply px-3 py-2 mx-5 rounded-2xl text-xs duration-200 text-[var(--fg)];
+}
+.btn1 {
+	@apply bg-[var(--btn1-bg-timer)] hover:bg-[var(--btn1-bg-timer-hover)];
+}
+.btn2 {
+	@apply bg-[var(--btn2-bg-timer)] hover:bg-[var(--btn2-bg-timer-hover)];
+}
+.circle {
+	stroke: var(--round-timer);
+}

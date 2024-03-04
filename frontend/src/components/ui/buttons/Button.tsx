@@ -1,6 +1,8 @@
 import cn from 'clsx'
 import type { ButtonHTMLAttributes, PropsWithChildren } from 'react'
 
+import styles from './button.module.scss'
+
 type TypeButton = ButtonHTMLAttributes<HTMLButtonElement>
 
 export function Button({
@@ -11,8 +13,9 @@ export function Button({
 	return (
 		<button
 			className={cn(
-				'linear rounded-lg bg-transparent border border-primary py-2 px-7 text-base font-medium text-white transition hover:bg-primary active:bg-brand-700',
-				className
+				'linear rounded-lg bg-transparent border border-primary py-2 px-7 text-base font-medium transition hover:bg-primary active:bg-brand-700',
+				className,
+				styles.button
 			)}
 			{...rest}
 		>

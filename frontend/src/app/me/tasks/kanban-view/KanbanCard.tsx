@@ -8,16 +8,19 @@ import { TransparentField } from '@/components/ui/fields/TransparentField'
 import { SingleSelect } from '@/components/ui/task-edit/SingleSelect'
 import { DatePicker } from '@/components/ui/task-edit/date-picker/DatePicker'
 
-import type { ITaskResponse, TypeTaskFormState } from '@/types/task.types'
+import type {
+	ITaskTimeManagementResponse,
+	TypeTaskFormState
+} from '@/types/task.types'
 
-import { useDeleteTask } from '../hooks/useDeleteTask'
-import { useTaskDebounce } from '../hooks/useTaskDebounce'
+import { useDeleteTaskTimeManagement } from '../hooks/useDeleteTask'
+import { useTaskTimeManagementDebounce } from '../hooks/useTaskDebounce'
 
 import styles from './KanbanView.module.scss'
 
 interface IKanbanCard {
-	item: ITaskResponse
-	setItems: Dispatch<SetStateAction<ITaskResponse[] | undefined>>
+	item: ITaskTimeManagementResponse
+	setItems: Dispatch<SetStateAction<ITaskTimeManagementResponse[] | undefined>>
 }
 
 export function KanbanCard({ item, setItems }: IKanbanCard) {
@@ -30,9 +33,10 @@ export function KanbanCard({ item, setItems }: IKanbanCard) {
 		}
 	})
 
-	useTaskDebounce({ watch, itemId: item.id })
+	useTaskTimeManagementDebounce({ watch, itemId: item.id })
 
-	const { deleteTask, isDeletePending } = useDeleteTask()
+	const { deleteTaskTimeManagement, isDeletePending } =
+		useDeleteTaskTimeManagement()
 
 	return (
 		<div
@@ -97,7 +101,9 @@ export function KanbanCard({ item, setItems }: IKanbanCard) {
 			<div className={styles.cardActions}>
 				<button
 					onClick={() =>
-						item.id ? deleteTask(item.id) : setItems(prev => prev?.slice(0, -1))
+						item.id
+							? deleteTaskTimeManagement(item.id)
+							: setItems(prev => prev?.slice(0, -1))
 					}
 					className='opacity-50 transition-opacity hover:opacity-100'
 				>

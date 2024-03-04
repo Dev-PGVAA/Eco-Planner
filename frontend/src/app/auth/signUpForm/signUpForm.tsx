@@ -9,6 +9,8 @@ import { IAuthForm } from '@/types/auth.types'
 
 import { DASHBOARD_PAGES } from '@/config/pages-url.config'
 
+import { errorCatch } from '@/api/error'
+
 import styles from '../auth.module.scss'
 
 import { authService } from '@/services/auth.service'
@@ -36,8 +38,8 @@ const signUpForm: FC = () => {
 			reset()
 			push(DASHBOARD_PAGES.HOME)
 		},
-		onError() {
-			setError('Email already exists!')
+		onError(error) {
+			setError(errorCatch(error))
 		}
 	})
 
@@ -82,7 +84,11 @@ const signUpForm: FC = () => {
 					className='absolute -translate-x-8 translate-y-1'
 					onClick={() => ShowPassword()}
 				>
-					{isShowPassword === 'password' ? <EyeOff /> : <Eye />}
+					{isShowPassword === 'password' ? (
+						<EyeOff stroke='#828282' />
+					) : (
+						<Eye stroke='#828282' />
+					)}
 				</i>
 			</span>
 			<h5 className='text-red-600 text-sm'>{error}</h5>

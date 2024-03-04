@@ -36,6 +36,10 @@
 					@apply mb-2.5 w-max;
 					min-width: 6rem;
 
+					> div {
+						background: var(--bg-switcher);
+					}
+
 					> button:last-child {
 						@apply opacity-15;
 					}

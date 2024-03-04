@@ -1,0 +1,11 @@
+@import 'src/config/colors.config';
+
+.profile {
+	div:nth-child(2) {
+		background-color: rgba(var(--line-rgb), 0.2);
+	}
+
+	div p {
+		background-color: rgba(var(--line-rgb), 0.2);
+	}
+}

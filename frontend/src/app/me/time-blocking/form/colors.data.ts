@@ -5,5 +5,5 @@ export const COLORS = [
 	'seagreen',
 	'orange',
 	'royalblue',
-	'lightslategray'
+	'slategray'
 ]

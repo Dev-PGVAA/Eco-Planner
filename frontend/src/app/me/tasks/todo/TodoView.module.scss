@@ -1,0 +1,19 @@
+@import 'src/config/colors.config';
+
+.row {
+	@apply grid my-3;
+	grid-template-columns: auto 110px 30px;
+	div span {
+		@apply flex;
+		input:nth-child(2) {
+			@apply translate-y-[3px] mr-2;
+		}
+		input:nth-child(3) {
+			@apply w-full;
+		}
+	}
+	div:nth-child(2) {
+		@apply text-sm translate-y-[1px];
+		color: rgba(var(--line-rgb), 0.5);
+	}
+}

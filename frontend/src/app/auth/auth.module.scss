@@ -37,7 +37,7 @@
 				@apply text-[#ffffff7a] text-sm mb-1 cursor-default;
 			}
 			.input {
-				@apply rounded-lg bg-[var(--bg)] w-full h-8 mb-5 text-sm;
+				@apply rounded-lg bg-[var(--bg)] text-[var(--fg)] w-full h-8 mb-5 text-sm;
 				outline: 2px solid rgba(var(--line-rgb), 0.2);
 				padding-left: 10px;
 				&:active,

@@ -8,6 +8,7 @@ import { TypeUserForm } from '@/types/auth.types'
 
 import { useInitialData } from '../(hooks)/useInitialData'
 import { useUpdateSettings } from '../(hooks)/useUpdateSettings'
+import { GoBack } from '../GoBack'
 
 import styles from './ChangeSecurityForm.module.scss'
 
@@ -37,47 +38,50 @@ export function ChangeSecurityForm() {
 	}
 
 	return (
-		<form
-			className={styles.form}
-			onSubmit={handleSubmit(onSubmit)}
-		>
-			<p>Name</p>
-			<input
-				type='text'
-				className={styles.input}
-				placeholder='Enter new name'
-				{...register('name')}
-			/>
-			<p>Email</p>
-			<input
-				type='email'
-				className={styles.input}
-				placeholder='Enter new email'
-				{...register('email', {
-					required: 'Email is required!'
-				})}
-			/>
-			<p>Password</p>
-			<span>
-				<input
-					type={isShowPassword}
-					className={styles.input}
-					placeholder='Enter new password'
-					{...register('password')}
-				/>
-				<i
-					className='absolute -translate-x-10 translate-y-3 cursor-pointer'
-					onClick={() => ShowPassword()}
-				>
-					{isShowPassword === 'password' ? <EyeOff /> : <Eye />}
-				</i>
-			</span>
-			<button
-				type='submit'
-				disabled={isPending}
+		<>
+			<GoBack />
+			<form
+				className={styles.form}
+				onSubmit={handleSubmit(onSubmit)}
 			>
-				Save
-			</button>
-		</form>
+				<p>Name</p>
+				<input
+					type='text'
+					className={styles.input}
+					placeholder='Enter new name'
+					{...register('name')}
+				/>
+				<p>Email</p>
+				<input
+					type='email'
+					className={styles.input}
+					placeholder='Enter new email'
+					{...register('email', {
+						required: 'Email is required!'
+					})}
+				/>
+				<p>Password</p>
+				<span>
+					<input
+						type={isShowPassword}
+						className={styles.input}
+						placeholder='Enter new password'
+						{...register('password')}
+					/>
+					<i
+						className='absolute -translate-x-10 translate-y-3 cursor-pointer'
+						onClick={() => ShowPassword()}
+					>
+						{isShowPassword === 'password' ? <EyeOff /> : <Eye />}
+					</i>
+				</span>
+				<button
+					type='submit'
+					disabled={isPending}
+				>
+					Save
+				</button>
+			</form>
+		</>
 	)
 }
