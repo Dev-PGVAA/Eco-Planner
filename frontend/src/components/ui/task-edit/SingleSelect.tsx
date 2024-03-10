@@ -3,6 +3,7 @@ import { X } from 'lucide-react'
 
 import { Badge } from '@/components/ui/Badge'
 
+import { useLanguage } from '@/hooks/useLanguage'
 import { useOutside } from '@/hooks/useOutside'
 
 export interface IOption {
@@ -23,6 +24,7 @@ export function SingleSelect({
 	value,
 	isColorSelect
 }: ISingleSelect) {
+	const language: string = useLanguage()
 	const { isShow, setIsShow, ref } = useOutside(false)
 	const getValue = () => data.find(item => item.value === value)?.value
 
@@ -48,7 +50,15 @@ export function SingleSelect({
 						{getValue()}
 					</Badge>
 				) : (
-					<Badge>Click for select</Badge>
+					<Badge>
+						{language === '🇷🇺'
+							? 'Выбрать...'
+							: language === '🇩🇪'
+								? 'Wählen...'
+								: language === '🇨🇳'
+									? '选择...'
+									: 'Select...'}
+					</Badge>
 				)}
 			</button>
 			{value && (

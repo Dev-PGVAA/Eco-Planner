@@ -13,6 +13,8 @@ import type {
 	TypeTaskFormState
 } from '@/types/task.types'
 
+import { useLanguage } from '@/hooks/useLanguage'
+
 import { useDeleteTaskTimeManagement } from '../hooks/useDeleteTask'
 import { useTaskTimeManagementDebounce } from '../hooks/useTaskDebounce'
 
@@ -21,9 +23,11 @@ import styles from './KanbanView.module.scss'
 interface IKanbanCard {
 	item: ITaskTimeManagementResponse
 	setItems: Dispatch<SetStateAction<ITaskTimeManagementResponse[] | undefined>>
+	isAutoFocus: boolean
 }
 
-export function KanbanCard({ item, setItems }: IKanbanCard) {
+export function KanbanCard({ item, setItems, isAutoFocus }: IKanbanCard) {
+	const language: string = useLanguage()
 	const { register, control, watch } = useForm<TypeTaskFormState>({
 		defaultValues: {
 			name: item.name,
@@ -64,7 +68,22 @@ export function KanbanCard({ item, setItems }: IKanbanCard) {
 					)}
 				/>
 
-				<TransparentField {...register('name')} />
+				<TransparentField
+					{...register('name')}
+					isAutoFocus={isAutoFocus}
+					onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+						if (!e.target.value)
+							setTimeout(() => {
+								deleteTaskTimeManagement(item.id)
+							}, 30000)
+					}}
+					onBlur={e => {
+						if (!e.target.value) {
+							deleteTaskTimeManagement(item.id)
+							setItems(prev => prev?.slice(0, -1))
+						}
+					}}
+				/>
 			</div>
 
 			<div className={styles.cardBody}>

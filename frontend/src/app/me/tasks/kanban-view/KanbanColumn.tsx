@@ -1,5 +1,5 @@
 import { Draggable, Droppable } from '@hello-pangea/dnd'
-import type { Dispatch, SetStateAction } from 'react'
+import { type Dispatch, type SetStateAction, useState } from 'react'
 
 import type { ITaskTimeManagementResponse } from '@/types/task.types'
 
@@ -18,6 +18,8 @@ interface IKanbanColumn {
 }
 
 export function KanbanColumn({ value, items, label, setItems }: IKanbanColumn) {
+	const [isAutoFocus, setIsAutoFocus] = useState(false)
+
 	return (
 		<Droppable droppableId={value}>
 			{provided => (
@@ -44,6 +46,7 @@ export function KanbanColumn({ value, items, label, setItems }: IKanbanColumn) {
 											key={item.id}
 											item={item}
 											setItems={setItems}
+											isAutoFocus={isAutoFocus}
 										/>
 									</div>
 								)}
@@ -58,6 +61,7 @@ export function KanbanColumn({ value, items, label, setItems }: IKanbanColumn) {
 								filterDate={
 									FILTERS[value] ? FILTERS[value].format() : undefined
 								}
+								setIsAutoFocus={setIsAutoFocus}
 							/>
 						)}
 					</div>

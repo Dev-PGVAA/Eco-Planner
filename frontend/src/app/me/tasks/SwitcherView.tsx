@@ -3,6 +3,8 @@
 import cn from 'clsx'
 import { CalendarCheck, Kanban, ListTodo } from 'lucide-react'
 
+import { useLanguage } from '@/hooks/useLanguage'
+
 import type { TypeView } from './TasksView'
 
 interface ISwitcherView {
@@ -11,6 +13,8 @@ interface ISwitcherView {
 }
 
 export function SwitcherView({ setType, type }: ISwitcherView) {
+	const language: string = useLanguage()
+
 	return (
 		<div className='flex items-center gap-4 mb-5'>
 			<button
@@ -20,7 +24,13 @@ export function SwitcherView({ setType, type }: ISwitcherView) {
 				onClick={() => setType('list')}
 			>
 				<CalendarCheck />
-				List
+				{language === '🇷🇺'
+					? 'Лист'
+					: language === '🇩🇪'
+						? 'Liste'
+						: language === '🇨🇳'
+							? '清单'
+							: 'List'}
 			</button>
 			<button
 				className={cn('flex items-center gap-1', {
@@ -29,7 +39,13 @@ export function SwitcherView({ setType, type }: ISwitcherView) {
 				onClick={() => setType('kanban')}
 			>
 				<Kanban />
-				Board
+				{language === '🇷🇺'
+					? 'Доска'
+					: language === '🇩🇪'
+						? 'Tafel'
+						: language === '🇨🇳'
+							? '看板'
+							: 'Board'}
 			</button>
 			<button
 				className={cn('flex items-center gap-1', {
@@ -38,7 +54,13 @@ export function SwitcherView({ setType, type }: ISwitcherView) {
 				onClick={() => setType('todo')}
 			>
 				<ListTodo />
-				Todo
+				{language === '🇷🇺'
+					? 'Список задач'
+					: language === '🇩🇪'
+						? 'Aufgabenliste'
+						: language === '🇨🇳'
+							? '任务列表'
+							: 'Todo list'}
 			</button>
 		</div>
 	)

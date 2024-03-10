@@ -6,11 +6,14 @@ import { SingleSelect } from '@/components/ui/task-edit/SingleSelect'
 
 import type { TypeTimeBlockFormState } from '@/types/time-block.types'
 
+import { useLanguage } from '@/hooks/useLanguage'
+
 import { COLORS } from './colors.data'
 import { useCreateTimeBlock } from './useCreateTimeBlock'
 import { useUpdateTimeBlock } from './useUpdateTimBlock'
 
 export function TimeBlockingForm() {
+	const language: string = useLanguage()
 	const { register, control, watch, reset, handleSubmit, getValues } =
 		useFormContext<TypeTimeBlockFormState>()
 
@@ -51,8 +54,24 @@ export function TimeBlockingForm() {
 					required: true
 				})}
 				id='name'
-				label='Enter name:'
-				placeholder='Enter name:'
+				label={
+					language === '🇷🇺'
+						? 'Введите имя задачи:'
+						: language === '🇩🇪'
+							? 'Geben Sie den Namen ein:'
+							: language === '🇨🇳'
+								? '输入名称：'
+								: 'Enter name:'
+				}
+				placeholder={
+					language === '🇷🇺'
+						? 'Введите имя задачи:'
+						: language === '🇩🇪'
+							? 'Geben Sie den Namen ein:'
+							: language === '🇨🇳'
+								? '输入名称：'
+								: 'Enter name:'
+				}
 				extra='mb-4'
 			/>
 
@@ -62,14 +81,38 @@ export function TimeBlockingForm() {
 					valueAsNumber: true
 				})}
 				id='duration'
-				label='Enter duration (min.):'
-				placeholder='Enter duration (min.):'
+				label={
+					language === '🇷🇺'
+						? 'Введите продолжительность (мин.):'
+						: language === '🇩🇪'
+							? 'Geben Sie die Dauer ein (min.):'
+							: language === '🇨🇳'
+								? '输入持续时间（分钟）：'
+								: 'Enter duration (min.):'
+				}
+				placeholder={
+					language === '🇷🇺'
+						? 'Введите продолжительность (мин.):'
+						: language === '🇩🇪'
+							? 'Geben Sie die Dauer ein (min.):'
+							: language === '🇨🇳'
+								? '输入持续时间（分钟）：'
+								: 'Enter duration (min.):'
+				}
 				isNumber
 				extra='mb-4'
 			/>
 
 			<div>
-				<span className='inline-block mb-1.5'>Color:</span>
+				<span className='inline-block mb-1.5'>
+					{language === '🇷🇺'
+						? 'Цвет'
+						: language === '🇩🇪'
+							? 'Farbe'
+							: language === '🇨🇳'
+								? '颜色'
+								: 'Color'}
+				</span>
 				<Controller
 					control={control}
 					name='color'
@@ -92,7 +135,21 @@ export function TimeBlockingForm() {
 				disabled={isPending}
 				className='mt-6'
 			>
-				{existsId ? 'Update' : 'Create'}
+				{existsId
+					? language === '🇷🇺'
+						? 'Обновить'
+						: language === '🇩🇪'
+							? 'Aktualisieren'
+							: language === '🇨🇳'
+								? '更新'
+								: 'Update'
+					: language === '🇷🇺'
+						? 'Создать'
+						: language === '🇩🇪'
+							? 'Erstellen'
+							: language === '🇨🇳'
+								? '创建'
+								: 'Create'}
 			</Button>
 		</form>
 	)

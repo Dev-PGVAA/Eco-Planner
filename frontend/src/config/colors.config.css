@@ -2,8 +2,10 @@
 	--fg: #fefefe;
 	--bg: #0e0f0f;
 	--bg-2: #141515;
+	--bg-variant: #141515cc;
 	--bg-hover: #ffffff2a;
 	--bg-task-hover: #1c1f1f;
+	--bg-variant-hover: #14151585;
 	--bg-auth-page: #020202;
 	--bg-switcher: #14141496;
 	--btn1-bg-timer: #49454f;
@@ -20,8 +22,10 @@
 	--fg: #0e0f0f;
 	--bg: #e6e6e6;
 	--bg-2: #b5b5b5;
+	--bg-variant: #b5b5b5cc;
 	--bg-hover: #00000020;
 	--bg-task-hover: #bdc2b5;
+	--bg-variant-hover: #b5b5b585;
 	--bg-auth-page: #828282;
 	--bg-switcher: #afafaf96;
 	--btn1-bg-timer: #6b6573;

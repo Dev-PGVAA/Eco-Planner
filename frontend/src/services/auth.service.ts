@@ -16,6 +16,15 @@ export const authService = {
 		return response
 	},
 
+	async VerificationCode(data: IAuthForm) {
+		const response = await axiosClassic.post<boolean>(
+			'/auth/verification-code',
+			data
+		)
+
+		return response
+	},
+
 	async getNewTokens() {
 		const response = await axiosClassic.post<IAuthResponse>(
 			'/auth/login/access-token'

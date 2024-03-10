@@ -25,7 +25,7 @@ export function useDeleteTaskTimeManagement() {
 export function useDeleteTaskTodo() {
 	const queryClient = useQueryClient()
 
-	const { mutate: deleteTask, isPending: isDeletePending } = useMutation({
+	const { mutate: deleteTaskTodo, isPending: isDeletePending } = useMutation({
 		mutationKey: ['delete task'],
 		mutationFn: (id: string) => taskTodoService.deleteTask(id),
 		onSuccess() {
@@ -35,5 +35,5 @@ export function useDeleteTaskTodo() {
 		}
 	})
 
-	return { deleteTask, isDeletePending }
+	return { deleteTaskTodo, isDeletePending }
 }

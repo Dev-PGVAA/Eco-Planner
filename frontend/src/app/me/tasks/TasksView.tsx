@@ -2,8 +2,10 @@
 
 import React from 'react'
 
+import { Heading } from '@/components/ui/Heading'
 import Loader from '@/components/ui/Loader'
 
+import { useLanguage } from '@/hooks/useLanguage'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 
 import { SwitcherView } from './SwitcherView'
@@ -14,6 +16,7 @@ import { TodoView } from './todo/TodoView'
 export type TypeView = 'list' | 'kanban' | 'todo'
 
 function TasksView() {
+	const language: string = useLanguage()
 	const [type, setType, isLoading] = useLocalStorage<TypeView>({
 		key: 'view-type',
 		defaultValue: 'list'
@@ -22,15 +25,28 @@ function TasksView() {
 	if (isLoading) return <Loader />
 
 	return (
-		<div>
-			<SwitcherView
-				setType={setType}
-				type={type}
+		<>
+			<Heading
+				title={
+					language === '🇷🇺'
+						? 'Задачи'
+						: language === '🇩🇪'
+							? 'Aufgaben'
+							: language === '🇨🇳'
+								? '任务'
+								: 'Tasks'
+				}
 			/>
-			{type === 'list' && <ListView />}
-			{type === 'kanban' && <KanbanView />}
-			{type === 'todo' && <TodoView />}
-		</div>
+			<div>
+				<SwitcherView
+					setType={setType}
+					type={type}
+				/>
+				{type === 'list' && <ListView />}
+				{type === 'kanban' && <KanbanView />}
+				{type === 'todo' && <TodoView />}
+			</div>
+		</>
 	)
 }
 

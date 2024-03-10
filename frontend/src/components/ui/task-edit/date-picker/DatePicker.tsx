@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { DayPicker, type SelectSingleEventHandler } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 
+import { useLanguage } from '@/hooks/useLanguage'
 import { useOutside } from '@/hooks/useOutside'
 
 import './DatePicker.scss'
@@ -26,6 +27,7 @@ export function DatePicker({
 }: IDatePicker) {
 	const [selected, setSelected] = useState<Date>()
 	const { isShow, setIsShow, ref } = useOutside(false)
+	const language: string = useLanguage()
 
 	const handleDaySelect: SelectSingleEventHandler = date => {
 		const ISOdate = date?.toISOString()
@@ -45,7 +47,15 @@ export function DatePicker({
 			ref={ref}
 		>
 			<button onClick={() => setIsShow(!isShow)}>
-				{value ? dayjs(value).format('LL') : 'Click for select'}
+				{value
+					? dayjs(value).format('LL')
+					: language === '🇷🇺'
+						? 'Выбрать дату...'
+						: language === '🇩🇪'
+							? 'Datum auswählen...'
+							: language === '🇨🇳'
+								? '选择日期...'
+								: 'Select date...'}
 			</button>
 			{value && (
 				<button

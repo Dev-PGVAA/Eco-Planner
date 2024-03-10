@@ -1,9 +1,9 @@
 'use client'
 
-import dayjs from 'dayjs'
-import { GanttChartSquare } from 'lucide-react'
+import cn from 'clsx'
+import { ArrowLeftToLine, GanttChartSquare } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 
 import { COLORS } from '@/constants/color.constants'
 
@@ -13,10 +13,15 @@ import { MenuItem } from './MenuItem'
 import { MENU } from './menu.data'
 import { useTimer } from '@/app/me/timer/hooks/useTimer'
 
-export function Sidebar() {
+export function Sidebar({
+	isMinimized,
+	setIsMinimized
+}: {
+	isMinimized: boolean
+	setIsMinimized: Dispatch<SetStateAction<boolean>>
+}) {
 	const timerState = useTimer()
 
-	//TODO: move to useTimer
 	useEffect(() => {
 		timerState.setIsRunning(sessionStorage.getItem('TimerIsRunning') === 'true')
 	}, [timerState])
@@ -26,13 +31,19 @@ export function Sidebar() {
 			<div>
 				<Link
 					href='/'
-					className='flex items-center gap-2.5 p-layout'
+					className='flex items-center p-layout gap-2.5'
 				>
 					<GanttChartSquare
 						color={COLORS.primary}
 						size={38}
+						className={cn(isMinimized && 'translate-x-[5px]')}
 					/>
-					<span className='text-[27px] font-bold relative'>
+					<span
+						className={cn(
+							isMinimized && 'opacity-0 w-0 h-0',
+							'text-[24px] font-bold relative'
+						)}
+					>
 						<span className='text-[#218f5d]'>Eco</span>-Planner
 						<span className='absolute -top-1 -right-6 text-xs opacity-40 rotate-[18deg] font-normal'>
 							beta
@@ -44,21 +55,29 @@ export function Sidebar() {
 						<MenuItem
 							item={item}
 							key={item.link}
+							isMinimized={isMinimized}
 						/>
 					))}
 				</div>
 			</div>
-			<footer className='text-xs opacity-40 font-normal text-center p-layout'>
-				{dayjs().year()} &copy; With love from{' '}
-				<a
-					href='https://github.com/Dev-PGVAA'
-					target='_blank'
-					rel='noreferrer'
-					className='hover:text-primary text-brand-300 transition-colors'
+			<footer
+				className={cn(
+					'flex p-3 duration-200',
+					isMinimized ? 'justify-center' : 'justify-end'
+				)}
+			>
+				<button
+					className='hover:scale-125 duration-200'
+					onClick={() => {
+						setIsMinimized(!isMinimized)
+						localStorage.setItem('isMinimized', JSON.stringify(!isMinimized))
+					}}
 				>
-					ECO Group
-				</a>
-				. <br /> All rights reserved.
+					<ArrowLeftToLine
+						size={28}
+						className={cn(isMinimized && 'rotate-180', 'duration-200')}
+					/>
+				</button>
 			</footer>
 		</aside>
 	)

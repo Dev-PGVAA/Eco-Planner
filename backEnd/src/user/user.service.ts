@@ -22,6 +22,15 @@ export class UserService {
 		})
 	}
 
+	createRandomVerificationCode() {
+		const code = crypto
+			.getRandomValues(new Uint32Array(1))[0]
+			.toString()
+			.slice(0, 6)
+
+		return Number(code)
+	}
+
 	async getProfile(id: string) {
 		const profile = await this.getById(id)
 
@@ -71,10 +80,10 @@ export class UserService {
 		return {
 			user: rest,
 			statistics: [
-				{ label: 'Total tasks', value: totalTasks + todo },
-				{ label: 'Completed tasks', value: completedTasks + completedTodo },
-				{ label: 'Today tasks', value: todayTasks },
-				{ label: 'Week tasks', value: weekTasks }
+				{ value: totalTasks + todo },
+				{ value: completedTasks + completedTodo },
+				{ value: todayTasks },
+				{ value: weekTasks }
 			]
 		}
 	}

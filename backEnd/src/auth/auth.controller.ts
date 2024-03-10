@@ -11,7 +11,11 @@ import {
 } from '@nestjs/common'
 import { Request, Response } from 'express'
 import { AuthService } from './auth.service'
-import { AuthLoginDto, AuthRegisterDto } from './dto/auth.dto'
+import {
+	AuthLoginDto,
+	AuthRegisterDto,
+	VerificationCodeDto
+} from './dto/auth.dto'
 
 @Controller('auth')
 export class AuthController {
@@ -63,6 +67,12 @@ export class AuthController {
 		this.authService.addRefreshTokenToResponse(res, refreshToken)
 
 		return response
+	}
+
+	@HttpCode(200)
+	@Post('verification-code')
+	async verificationCode(@Body() dto: VerificationCodeDto) {
+		return this.authService.verificationCode(dto.email, dto.code)
 	}
 
 	@HttpCode(200)

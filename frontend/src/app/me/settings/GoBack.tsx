@@ -1,16 +1,10 @@
 'use client'
 
 import { ArrowLeftCircle } from 'lucide-react'
-import { usePathname, useRouter } from 'next/navigation'
-
-import { DASHBOARD_PAGES } from '@/config/pages-url.config'
 
 export function GoBack() {
-	const { pathname }: any = usePathname()
-	const router = useRouter()
-
 	const goBack = () => {
-		router.push(DASHBOARD_PAGES.SETTINGS.HOME)
+		history.back()
 	}
 
 	return (

@@ -12,6 +12,11 @@
 			@apply w-full;
 		}
 	}
+	&.completed {
+		> div > span > input {
+			@apply italic line-through opacity-50;
+		}
+	}
 	div:nth-child(2) {
 		@apply text-sm translate-y-[1px];
 		color: rgba(var(--line-rgb), 0.5);

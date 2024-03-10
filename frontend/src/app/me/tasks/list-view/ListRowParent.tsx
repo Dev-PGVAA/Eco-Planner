@@ -1,5 +1,5 @@
 import { Draggable, Droppable } from '@hello-pangea/dnd'
-import type { Dispatch, SetStateAction } from 'react'
+import { type Dispatch, type SetStateAction, useState } from 'react'
 
 import type { ITaskTimeManagementResponse } from '@/types/task.types'
 
@@ -23,6 +23,8 @@ export function ListRowParent({
 	label,
 	setItems
 }: IListRowParent) {
+	const [isAutoFocus, setIsAutoFocus] = useState(false)
+
 	return (
 		<Droppable droppableId={value}>
 			{provided => (
@@ -50,6 +52,7 @@ export function ListRowParent({
 										key={item.id}
 										item={item}
 										setItems={setItems}
+										isAutoFocus={isAutoFocus}
 									/>
 								</div>
 							)}
@@ -61,6 +64,7 @@ export function ListRowParent({
 					{value !== 'completed' && !items?.some(item => !item.id) && (
 						<ListAddRowInput
 							setItems={setItems}
+							setIsAutoFocus={setIsAutoFocus}
 							filterDate={FILTERS[value] ? FILTERS[value].format() : undefined}
 						/>
 					)}

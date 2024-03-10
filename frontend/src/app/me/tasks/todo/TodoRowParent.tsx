@@ -1,5 +1,5 @@
 import { Draggable, Droppable } from '@hello-pangea/dnd'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 import { ITaskTodoResponse } from '@/types/task.types'
 
@@ -12,6 +12,8 @@ interface ITodoRowParent {
 }
 
 export function TodoRowParent({ items, setItems }: ITodoRowParent) {
+	const [isAutoFocus, setIsAutoFocus] = useState(false)
+
 	return (
 		<Droppable droppableId='todo'>
 			{provided => (
@@ -45,6 +47,7 @@ export function TodoRowParent({ items, setItems }: ITodoRowParent) {
 													key={item.id}
 													item={item}
 													setItems={setItems}
+													isAutoFocus={isAutoFocus}
 												/>
 											</div>
 										)}
@@ -55,7 +58,12 @@ export function TodoRowParent({ items, setItems }: ITodoRowParent) {
 					</Draggable>
 					{provided.placeholder}
 
-					<TodoAddRowInput setItems={setItems} />
+					{!items?.some(item => !item.id) && (
+						<TodoAddRowInput
+							setItems={setItems}
+							setIsAutoFocus={setIsAutoFocus}
+						/>
+					)}
 				</div>
 			)}
 		</Droppable>

@@ -2,19 +2,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;500;700&display=swap');
 
 .auth {
-	@apply h-[120vh] w-screen grid;
+	@apply h-[200vh] w-screen grid;
 	overflow-y: hidden;
 	grid-template-columns: 396px auto;
 	aside {
 		@apply bg-[var(--bg-auth-page)] w-full;
 		border-right: 2px solid rgba(var(--line-rgb), 0.2);
-		z-index: 100;
 		> div {
 			@apply absolute top-1/2 mx-6 w-fit;
 			transform: translateY(-50%);
 			> div {
 				@apply mb-3;
 			}
+			z-index: 5;
 		}
 		h1 {
 			@apply text-2xl mb-2 cursor-default;
@@ -34,7 +34,7 @@
 		/* FORM */
 		.form {
 			p {
-				@apply text-[#ffffff7a] text-sm mb-1 cursor-default;
+				@apply text-[#ffffff7a] text-sm mb-1 cursor-pointer;
 			}
 			.input {
 				@apply rounded-lg bg-[var(--bg)] text-[var(--fg)] w-full h-8 mb-5 text-sm;
@@ -62,7 +62,7 @@
 	}
 }
 .forgotPassword {
-	@apply w-fit pb-[10px] cursor-pointer;
+	@apply w-fit pb-[10px];
 	&:hover {
 		text-decoration: underline;
 	}
@@ -88,6 +88,7 @@
 	opacity: 0.3;
 
 	filter: blur(4px);
+	z-index: -100;
 }
 .circle1 {
 	width: 300px;

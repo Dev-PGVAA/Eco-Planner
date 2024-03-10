@@ -30,9 +30,10 @@ export class AuthService {
 	}
 
 	async register(dto: AuthRegisterDto) {
-		const oldUser = await this.UserService.getByEmail(dto.email)
+		const oldUserEmail = await this.UserService.getByEmail(dto.email)
 
-		if (oldUser) throw new UnauthorizedException('User already exists')
+		if (oldUserEmail)
+			throw new UnauthorizedException('User with this email already exists')
 
 		const { password, ...user } = await this.UserService.create(dto)
 
@@ -97,6 +98,15 @@ export class AuthService {
 			user,
 			...tokens
 		}
+	}
+
+	async verificationCode(email: string, code: number) {
+		const user = await this.UserService.getByEmail(email)
+
+		if (user.verificationCode !== code.toString())
+			throw new UnauthorizedException('Invalid verification code')
+
+		return 'Verification success'
 	}
 
 	removeRefreshTokenToResponse(res: Response) {

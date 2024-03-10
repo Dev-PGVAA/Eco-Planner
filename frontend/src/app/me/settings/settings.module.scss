@@ -3,3 +3,21 @@
 .link {
 	@apply block w-3/5 my-3 py-2 px-5 bg-[var(--bg-2)] rounded-lg hover:bg-[var(--bg-hover)] duration-300;
 }
+
+.languageMenu {
+	@apply flex flex-wrap justify-end bg-[var(--bg-2)] w-3/5 py-2 rounded-xl duration-300;
+	button {
+		@apply flex flex-wrap w-full mx-3 p-2 hover:bg-[var(--bg-hover)] delay-100 duration-300;
+		border-bottom: 2px solid rgba(var(--line-rgb), 0.3);
+		&:first-child {
+			border-radius: 8px 8px 0 0;
+		}
+		&:last-child {
+			@apply border-none;
+			border-radius: 0 0 8px 8px;
+		}
+		p {
+			@apply mr-2 -translate-y-[2px];
+		}
+	}
+}

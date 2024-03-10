@@ -21,9 +21,10 @@ import styles from './ListView.module.scss'
 interface IListRow {
 	item: ITaskTimeManagementResponse
 	setItems: Dispatch<SetStateAction<ITaskTimeManagementResponse[] | undefined>>
+	isAutoFocus: boolean
 }
 
-export function ListRow({ item, setItems }: IListRow) {
+export function ListRow({ item, setItems, isAutoFocus }: IListRow) {
 	const { register, control, watch } = useForm<TypeTaskFormState>({
 		defaultValues: {
 			name: item.name,
@@ -63,7 +64,22 @@ export function ListRow({ item, setItems }: IListRow) {
 						)}
 					/>
 
-					<TransparentField {...register('name')} />
+					<TransparentField
+						{...register('name')}
+						isAutoFocus={isAutoFocus}
+						onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+							if (!e.target.value)
+								setTimeout(() => {
+									deleteTaskTimeManagement(item.id)
+								}, 30000)
+						}}
+						onBlur={e => {
+							if (!e.target.value) {
+								deleteTaskTimeManagement(item.id)
+								setItems(prev => prev?.slice(0, -1))
+							}
+						}}
+					/>
 				</span>
 			</div>
 			<div className={styles.date}>

@@ -33,7 +33,7 @@ export default function RootLayout({
 			<body
 				className={zen.className}
 				id='body'
-				data-theme='light'
+				data-theme='dark'
 			>
 				<Providers>
 					{children}

@@ -1,3 +1,4 @@
+import cn from 'clsx'
 import dayjs from 'dayjs'
 import { GripVertical, Loader, Trash } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
@@ -16,9 +17,10 @@ import styles from './TodoView.module.scss'
 interface IListRow {
 	item: ITaskTodoResponse
 	setItems: Dispatch<SetStateAction<ITaskTodoResponse[] | undefined>>
+	isAutoFocus: boolean
 }
 
-export function TodoRow({ item, setItems }: IListRow) {
+export function TodoRow({ item, setItems, isAutoFocus }: IListRow) {
 	const { register, control, watch } = useForm<TypeTaskTodoFormState>({
 		defaultValues: {
 			name: item.name,
@@ -28,10 +30,16 @@ export function TodoRow({ item, setItems }: IListRow) {
 
 	useTaskTodoDebounce({ watch, itemId: item.id })
 
-	const { deleteTask, isDeletePending } = useDeleteTaskTodo()
+	const { deleteTaskTodo, isDeletePending } = useDeleteTaskTodo()
 
 	return (
-		<div className={styles.row}>
+		<div
+			className={cn(
+				styles.row,
+				watch('isCompleted') ? styles.completed : '',
+				'animation-opacity'
+			)}
+		>
 			<div>
 				<span>
 					<button>
@@ -48,7 +56,22 @@ export function TodoRow({ item, setItems }: IListRow) {
 						)}
 					/>
 
-					<TransparentField {...register('name')} />
+					<TransparentField
+						{...register('name')}
+						isAutoFocus={isAutoFocus}
+						onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+							if (!e.target.value)
+								setTimeout(() => {
+									deleteTaskTodo(item.id)
+								}, 30000)
+						}}
+						onBlur={e => {
+							if (!e.target.value) {
+								deleteTaskTodo(item.id)
+								setItems(prev => prev?.slice(0, -1))
+							}
+						}}
+					/>
 				</span>
 			</div>
 			<div>
@@ -57,7 +80,9 @@ export function TodoRow({ item, setItems }: IListRow) {
 			<div>
 				<button
 					onClick={() =>
-						item.id ? deleteTask(item.id) : setItems(prev => prev?.slice(0, -1))
+						item.id
+							? deleteTaskTodo(item.id)
+							: setItems(prev => prev?.slice(0, -1))
 					}
 					className='opacity-50 transition-opacity hover:opacity-100'
 				>

@@ -48,46 +48,53 @@ const loginForm: FC = () => {
 	}
 
 	return (
-		<form
-			className={styles.form}
-			onSubmit={handleSubmit(onSubmit)}
-		>
-			<p>Email</p>
-			<input
-				type='email'
-				placeholder='Enter your email'
-				className={styles.input}
-				{...register('email', {
-					required: 'Email is required!'
-				})}
-			/>
-			<p>Password</p>
-			<span>
+		<>
+			<form
+				className={styles.form}
+				onSubmit={handleSubmit(onSubmit)}
+			>
+				<p>Email</p>
 				<input
-					type={isShowPassword}
-					placeholder='Enter your password'
+					type='email'
+					placeholder='Enter your email'
 					className={styles.input}
-					id='inputTypePassword'
-					{...register('password', {
-						required: 'Password is required!'
+					{...register('email', {
+						required: 'Email or telephone is required!'
 					})}
 				/>
-				<i
-					className='absolute -translate-x-8 translate-y-1'
-					onClick={() => ShowPassword()}
-				>
-					{isShowPassword === 'password' ? (
-						<EyeOff stroke='#828282' />
-					) : (
-						<Eye stroke='#828282' />
-					)}
-				</i>
-			</span>
-			<p className={styles.forgotPassword}>Forgot Password?</p>
-			<h5 className='text-red-600 text-sm'>{error}</h5>
-			<button>Login</button>
-			<p className='line' />
-		</form>
+				<p>Password</p>
+				<span>
+					<input
+						type={isShowPassword}
+						placeholder='Enter your password'
+						className={styles.input}
+						id='inputTypePassword'
+						{...register('password', {
+							required: 'Password is required!'
+						})}
+					/>
+					<i
+						className='absolute -translate-x-8 translate-y-1'
+						onClick={() => ShowPassword()}
+					>
+						{isShowPassword === 'password' ? (
+							<EyeOff stroke='#828282' />
+						) : (
+							<Eye stroke='#828282' />
+						)}
+					</i>
+				</span>
+				<h5 className='text-red-600 text-sm'>{error}</h5>
+				<button>Login</button>
+			</form>
+			<button
+				className={styles.forgotPassword}
+				onClick={() => {}}
+			>
+				Forgot Password?
+			</button>
+			<br />
+		</>
 	)
 }
 

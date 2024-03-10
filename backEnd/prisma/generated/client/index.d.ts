@@ -1412,8 +1412,10 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     email: string | null
+    telephone: string | null
     name: string | null
     password: string | null
+    verificationCode: string | null
     breakInterval: number | null
     intervalsCount: number | null
     workInterval: number | null
@@ -1424,8 +1426,10 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     email: string | null
+    telephone: string | null
     name: string | null
     password: string | null
+    verificationCode: string | null
     breakInterval: number | null
     intervalsCount: number | null
     workInterval: number | null
@@ -1436,8 +1440,10 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     email: number
+    telephone: number
     name: number
     password: number
+    verificationCode: number
     breakInterval: number
     intervalsCount: number
     workInterval: number
@@ -1462,8 +1468,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     email?: true
+    telephone?: true
     name?: true
     password?: true
+    verificationCode?: true
     breakInterval?: true
     intervalsCount?: true
     workInterval?: true
@@ -1474,8 +1482,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     email?: true
+    telephone?: true
     name?: true
     password?: true
+    verificationCode?: true
     breakInterval?: true
     intervalsCount?: true
     workInterval?: true
@@ -1486,8 +1496,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     email?: true
+    telephone?: true
     name?: true
     password?: true
+    verificationCode?: true
     breakInterval?: true
     intervalsCount?: true
     workInterval?: true
@@ -1585,8 +1597,10 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     email: string
+    telephone: string | null
     name: string | null
     password: string
+    verificationCode: string | null
     breakInterval: number | null
     intervalsCount: number | null
     workInterval: number | null
@@ -1616,8 +1630,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     email?: boolean
+    telephone?: boolean
     name?: boolean
     password?: boolean
+    verificationCode?: boolean
     breakInterval?: boolean
     intervalsCount?: boolean
     workInterval?: boolean
@@ -1633,8 +1649,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     email?: boolean
+    telephone?: boolean
     name?: boolean
     password?: boolean
+    verificationCode?: boolean
     breakInterval?: boolean
     intervalsCount?: boolean
     workInterval?: boolean
@@ -1662,8 +1680,10 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       email: string
+      telephone: string | null
       name: string | null
       password: string
+      verificationCode: string | null
       breakInterval: number | null
       intervalsCount: number | null
       workInterval: number | null
@@ -2072,8 +2092,10 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly email: FieldRef<"User", 'String'>
+    readonly telephone: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly verificationCode: FieldRef<"User", 'String'>
     readonly breakInterval: FieldRef<"User", 'Int'>
     readonly intervalsCount: FieldRef<"User", 'Int'>
     readonly workInterval: FieldRef<"User", 'Int'>
@@ -7319,8 +7341,10 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     email: 'email',
+    telephone: 'telephone',
     name: 'name',
     password: 'password',
+    verificationCode: 'verificationCode',
     breakInterval: 'breakInterval',
     intervalsCount: 'intervalsCount',
     workInterval: 'workInterval'
@@ -7509,8 +7533,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     email?: StringFilter<"User"> | string
+    telephone?: StringNullableFilter<"User"> | string | null
     name?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
+    verificationCode?: StringNullableFilter<"User"> | string | null
     breakInterval?: IntNullableFilter<"User"> | number | null
     intervalsCount?: IntNullableFilter<"User"> | number | null
     workInterval?: IntNullableFilter<"User"> | number | null
@@ -7525,8 +7551,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     email?: SortOrder
+    telephone?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
     password?: SortOrder
+    verificationCode?: SortOrderInput | SortOrder
     breakInterval?: SortOrderInput | SortOrder
     intervalsCount?: SortOrderInput | SortOrder
     workInterval?: SortOrderInput | SortOrder
@@ -7539,6 +7567,7 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    telephone?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -7546,6 +7575,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     name?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
+    verificationCode?: StringNullableFilter<"User"> | string | null
     breakInterval?: IntNullableFilter<"User"> | number | null
     intervalsCount?: IntNullableFilter<"User"> | number | null
     workInterval?: IntNullableFilter<"User"> | number | null
@@ -7553,15 +7583,17 @@ export namespace Prisma {
     todo?: TaskTodoListRelationFilter
     timeBlocks?: TimeBlockListRelationFilter
     timerSessions?: TimerSessionListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "telephone">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     email?: SortOrder
+    telephone?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
     password?: SortOrder
+    verificationCode?: SortOrderInput | SortOrder
     breakInterval?: SortOrderInput | SortOrder
     intervalsCount?: SortOrderInput | SortOrder
     workInterval?: SortOrderInput | SortOrder
@@ -7580,8 +7612,10 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     email?: StringWithAggregatesFilter<"User"> | string
+    telephone?: StringNullableWithAggregatesFilter<"User"> | string | null
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringWithAggregatesFilter<"User"> | string
+    verificationCode?: StringNullableWithAggregatesFilter<"User"> | string | null
     breakInterval?: IntNullableWithAggregatesFilter<"User"> | number | null
     intervalsCount?: IntNullableWithAggregatesFilter<"User"> | number | null
     workInterval?: IntNullableWithAggregatesFilter<"User"> | number | null
@@ -7916,8 +7950,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
+    telephone?: string | null
     name?: string | null
     password: string
+    verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
@@ -7932,8 +7968,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
+    telephone?: string | null
     name?: string | null
     password: string
+    verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
@@ -7948,8 +7986,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
@@ -7964,8 +8004,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
@@ -7980,8 +8022,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
+    telephone?: string | null
     name?: string | null
     password: string
+    verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
@@ -7992,8 +8036,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
@@ -8004,8 +8050,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
@@ -8448,8 +8496,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     email?: SortOrder
+    telephone?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    verificationCode?: SortOrder
     breakInterval?: SortOrder
     intervalsCount?: SortOrder
     workInterval?: SortOrder
@@ -8466,8 +8516,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     email?: SortOrder
+    telephone?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    verificationCode?: SortOrder
     breakInterval?: SortOrder
     intervalsCount?: SortOrder
     workInterval?: SortOrder
@@ -8478,8 +8530,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     email?: SortOrder
+    telephone?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    verificationCode?: SortOrder
     breakInterval?: SortOrder
     intervalsCount?: SortOrder
     workInterval?: SortOrder
@@ -9545,8 +9599,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
+    telephone?: string | null
     name?: string | null
     password: string
+    verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
@@ -9560,8 +9616,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
+    telephone?: string | null
     name?: string | null
     password: string
+    verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
@@ -9591,8 +9649,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9606,8 +9666,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9621,8 +9683,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
+    telephone?: string | null
     name?: string | null
     password: string
+    verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
@@ -9636,8 +9700,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
+    telephone?: string | null
     name?: string | null
     password: string
+    verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
@@ -9667,8 +9733,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9682,8 +9750,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9697,8 +9767,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
+    telephone?: string | null
     name?: string | null
     password: string
+    verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
@@ -9712,8 +9784,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
+    telephone?: string | null
     name?: string | null
     password: string
+    verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
@@ -9743,8 +9817,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9758,8 +9834,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9799,8 +9877,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
+    telephone?: string | null
     name?: string | null
     password: string
+    verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
@@ -9814,8 +9894,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
+    telephone?: string | null
     name?: string | null
     password: string
+    verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
@@ -9873,8 +9955,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9888,8 +9972,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null

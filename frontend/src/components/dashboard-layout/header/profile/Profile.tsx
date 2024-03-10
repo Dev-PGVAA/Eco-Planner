@@ -4,8 +4,6 @@ import cn from 'clsx'
 
 import { useProfile } from '@/hooks/useProfile'
 
-import { LogoutButton } from '../../../../app/me/settings/LogoutButton'
-
 import styles from './profile.module.scss'
 
 export function Profile() {
@@ -29,9 +27,6 @@ export function Profile() {
 					</div>
 
 					<div className='w-10 h-10 rounded'></div>
-					<i className='translate-y-1'>
-						<LogoutButton />
-					</i>
 				</div>
 			) : (
 				<div className='flex cursor-default'>
