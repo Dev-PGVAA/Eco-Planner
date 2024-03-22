@@ -7,7 +7,7 @@ import { DASHBOARD_PAGES } from '@/config/pages-url.config'
 
 import { useLoadSettings } from '@/app/me/timer/hooks/useLoadSettings'
 import type { ITimerState } from '@/app/me/timer/timer.types'
-import { notification } from '@/services/notifier'
+import { notification } from '@/services/notifier.service'
 
 export function useTimer(): ITimerState {
 	const { breakInterval, workInterval } = useLoadSettings()

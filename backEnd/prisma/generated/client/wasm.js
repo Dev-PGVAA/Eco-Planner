@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.9.1
- * Query Engine version: 5a9203d0590c951969e85a7d07215503f4672eb9
+ * Query Engine version: 23fdc5965b1e05fc54e5f26ed3de66776b93de64
  */
 Prisma.prismaVersion = {
   client: "5.9.1",
-  engine: "5a9203d0590c951969e85a7d07215503f4672eb9"
+  engine: "23fdc5965b1e05fc54e5f26ed3de66776b93de64"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -112,13 +112,13 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   email: 'email',
-  telephone: 'telephone',
   name: 'name',
   password: 'password',
   verificationCode: 'verificationCode',
   breakInterval: 'breakInterval',
   intervalsCount: 'intervalsCount',
-  workInterval: 'workInterval'
+  workInterval: 'workInterval',
+  role: 'role'
 };
 
 exports.Prisma.TaskTimeManagementScalarFieldEnum = {
@@ -183,6 +183,12 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Role = exports.$Enums.Role = {
+  user: 'user',
+  admin: 'admin',
+  creator: 'creator'
+};
+
 exports.Priority = exports.$Enums.Priority = {
   low: 'low',
   medium: 'medium',

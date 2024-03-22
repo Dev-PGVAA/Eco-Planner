@@ -1,4 +1,4 @@
-import { IsBoolean, IsOptional, IsString } from 'class-validator'
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator'
 
 export class TaskTodoDto {
 	@IsString()
@@ -12,4 +12,8 @@ export class TaskTodoDto {
 	@IsString()
 	@IsOptional()
 	createdAt?: string
+
+	@IsNumber()
+	@IsOptional()
+	order?: number
 }

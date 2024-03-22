@@ -48,7 +48,16 @@ export type TimerRound = $Result.DefaultSelection<Prisma.$TimerRoundPayload>
  * Enums
  */
 export namespace $Enums {
-  export const Priority: {
+  export const Role: {
+  user: 'user',
+  admin: 'admin',
+  creator: 'creator'
+};
+
+export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const Priority: {
   low: 'low',
   medium: 'medium',
   high: 'high',
@@ -59,6 +68,10 @@ export namespace $Enums {
 export type Priority = (typeof Priority)[keyof typeof Priority]
 
 }
+
+export type Role = $Enums.Role
+
+export const Role: typeof $Enums.Role
 
 export type Priority = $Enums.Priority
 
@@ -303,7 +316,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.9.1
-   * Query Engine version: 5a9203d0590c951969e85a7d07215503f4672eb9
+   * Query Engine version: 23fdc5965b1e05fc54e5f26ed3de66776b93de64
    */
   export type PrismaVersion = {
     client: string
@@ -1412,13 +1425,13 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     email: string | null
-    telephone: string | null
     name: string | null
     password: string | null
     verificationCode: string | null
     breakInterval: number | null
     intervalsCount: number | null
     workInterval: number | null
+    role: $Enums.Role | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1426,13 +1439,13 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     email: string | null
-    telephone: string | null
     name: string | null
     password: string | null
     verificationCode: string | null
     breakInterval: number | null
     intervalsCount: number | null
     workInterval: number | null
+    role: $Enums.Role | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1440,13 +1453,13 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     email: number
-    telephone: number
     name: number
     password: number
     verificationCode: number
     breakInterval: number
     intervalsCount: number
     workInterval: number
+    role: number
     _all: number
   }
 
@@ -1468,13 +1481,13 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     email?: true
-    telephone?: true
     name?: true
     password?: true
     verificationCode?: true
     breakInterval?: true
     intervalsCount?: true
     workInterval?: true
+    role?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1482,13 +1495,13 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     email?: true
-    telephone?: true
     name?: true
     password?: true
     verificationCode?: true
     breakInterval?: true
     intervalsCount?: true
     workInterval?: true
+    role?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1496,13 +1509,13 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     email?: true
-    telephone?: true
     name?: true
     password?: true
     verificationCode?: true
     breakInterval?: true
     intervalsCount?: true
     workInterval?: true
+    role?: true
     _all?: true
   }
 
@@ -1597,13 +1610,13 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     email: string
-    telephone: string | null
     name: string | null
     password: string
     verificationCode: string | null
     breakInterval: number | null
     intervalsCount: number | null
     workInterval: number | null
+    role: $Enums.Role
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1630,13 +1643,13 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     email?: boolean
-    telephone?: boolean
     name?: boolean
     password?: boolean
     verificationCode?: boolean
     breakInterval?: boolean
     intervalsCount?: boolean
     workInterval?: boolean
+    role?: boolean
     tasks?: boolean | User$tasksArgs<ExtArgs>
     todo?: boolean | User$todoArgs<ExtArgs>
     timeBlocks?: boolean | User$timeBlocksArgs<ExtArgs>
@@ -1649,13 +1662,13 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     email?: boolean
-    telephone?: boolean
     name?: boolean
     password?: boolean
     verificationCode?: boolean
     breakInterval?: boolean
     intervalsCount?: boolean
     workInterval?: boolean
+    role?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1680,13 +1693,13 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       email: string
-      telephone: string | null
       name: string | null
       password: string
       verificationCode: string | null
       breakInterval: number | null
       intervalsCount: number | null
       workInterval: number | null
+      role: $Enums.Role
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2092,13 +2105,13 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly email: FieldRef<"User", 'String'>
-    readonly telephone: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly verificationCode: FieldRef<"User", 'String'>
     readonly breakInterval: FieldRef<"User", 'Int'>
     readonly intervalsCount: FieldRef<"User", 'Int'>
     readonly workInterval: FieldRef<"User", 'Int'>
+    readonly role: FieldRef<"User", 'Role'>
   }
     
 
@@ -7341,13 +7354,13 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     email: 'email',
-    telephone: 'telephone',
     name: 'name',
     password: 'password',
     verificationCode: 'verificationCode',
     breakInterval: 'breakInterval',
     intervalsCount: 'intervalsCount',
-    workInterval: 'workInterval'
+    workInterval: 'workInterval',
+    role: 'role'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -7488,6 +7501,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Role'
+   */
+  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+  /**
+   * Reference to a field of type 'Role[]'
+   */
+  export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -7533,13 +7560,13 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     email?: StringFilter<"User"> | string
-    telephone?: StringNullableFilter<"User"> | string | null
     name?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     verificationCode?: StringNullableFilter<"User"> | string | null
     breakInterval?: IntNullableFilter<"User"> | number | null
     intervalsCount?: IntNullableFilter<"User"> | number | null
     workInterval?: IntNullableFilter<"User"> | number | null
+    role?: EnumRoleFilter<"User"> | $Enums.Role
     tasks?: TaskTimeManagementListRelationFilter
     todo?: TaskTodoListRelationFilter
     timeBlocks?: TimeBlockListRelationFilter
@@ -7551,13 +7578,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     email?: SortOrder
-    telephone?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
     password?: SortOrder
     verificationCode?: SortOrderInput | SortOrder
     breakInterval?: SortOrderInput | SortOrder
     intervalsCount?: SortOrderInput | SortOrder
     workInterval?: SortOrderInput | SortOrder
+    role?: SortOrder
     tasks?: TaskTimeManagementOrderByRelationAggregateInput
     todo?: TaskTodoOrderByRelationAggregateInput
     timeBlocks?: TimeBlockOrderByRelationAggregateInput
@@ -7567,7 +7594,6 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
-    telephone?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -7579,24 +7605,25 @@ export namespace Prisma {
     breakInterval?: IntNullableFilter<"User"> | number | null
     intervalsCount?: IntNullableFilter<"User"> | number | null
     workInterval?: IntNullableFilter<"User"> | number | null
+    role?: EnumRoleFilter<"User"> | $Enums.Role
     tasks?: TaskTimeManagementListRelationFilter
     todo?: TaskTodoListRelationFilter
     timeBlocks?: TimeBlockListRelationFilter
     timerSessions?: TimerSessionListRelationFilter
-  }, "id" | "email" | "telephone">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     email?: SortOrder
-    telephone?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
     password?: SortOrder
     verificationCode?: SortOrderInput | SortOrder
     breakInterval?: SortOrderInput | SortOrder
     intervalsCount?: SortOrderInput | SortOrder
     workInterval?: SortOrderInput | SortOrder
+    role?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -7612,13 +7639,13 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     email?: StringWithAggregatesFilter<"User"> | string
-    telephone?: StringNullableWithAggregatesFilter<"User"> | string | null
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringWithAggregatesFilter<"User"> | string
     verificationCode?: StringNullableWithAggregatesFilter<"User"> | string | null
     breakInterval?: IntNullableWithAggregatesFilter<"User"> | number | null
     intervalsCount?: IntNullableWithAggregatesFilter<"User"> | number | null
     workInterval?: IntNullableWithAggregatesFilter<"User"> | number | null
+    role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   }
 
   export type TaskTimeManagementWhereInput = {
@@ -7950,13 +7977,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
-    telephone?: string | null
     name?: string | null
     password: string
     verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
+    role?: $Enums.Role
     tasks?: TaskTimeManagementCreateNestedManyWithoutUserInput
     todo?: TaskTodoCreateNestedManyWithoutUserInput
     timeBlocks?: TimeBlockCreateNestedManyWithoutUserInput
@@ -7968,13 +7995,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
-    telephone?: string | null
     name?: string | null
     password: string
     verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
+    role?: $Enums.Role
     tasks?: TaskTimeManagementUncheckedCreateNestedManyWithoutUserInput
     todo?: TaskTodoUncheckedCreateNestedManyWithoutUserInput
     timeBlocks?: TimeBlockUncheckedCreateNestedManyWithoutUserInput
@@ -7986,13 +8013,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     tasks?: TaskTimeManagementUpdateManyWithoutUserNestedInput
     todo?: TaskTodoUpdateManyWithoutUserNestedInput
     timeBlocks?: TimeBlockUpdateManyWithoutUserNestedInput
@@ -8004,13 +8031,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     tasks?: TaskTimeManagementUncheckedUpdateManyWithoutUserNestedInput
     todo?: TaskTodoUncheckedUpdateManyWithoutUserNestedInput
     timeBlocks?: TimeBlockUncheckedUpdateManyWithoutUserNestedInput
@@ -8022,13 +8049,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
-    telephone?: string | null
     name?: string | null
     password: string
     verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
+    role?: $Enums.Role
   }
 
   export type UserUpdateManyMutationInput = {
@@ -8036,13 +8063,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -8050,13 +8077,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
 
   export type TaskTimeManagementCreateInput = {
@@ -8134,7 +8161,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     name: string
     isCompleted?: boolean | null
-    order?: number
+    order: number
     user: UserCreateNestedOneWithoutTodoInput
   }
 
@@ -8145,7 +8172,7 @@ export namespace Prisma {
     name: string
     isCompleted?: boolean | null
     userId: string
-    order?: number
+    order: number
   }
 
   export type TaskTodoUpdateInput = {
@@ -8175,7 +8202,7 @@ export namespace Prisma {
     name: string
     isCompleted?: boolean | null
     userId: string
-    order?: number
+    order: number
   }
 
   export type TaskTodoUpdateManyMutationInput = {
@@ -8446,6 +8473,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
   export type TaskTimeManagementListRelationFilter = {
     every?: TaskTimeManagementWhereInput
     some?: TaskTimeManagementWhereInput
@@ -8496,13 +8530,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     email?: SortOrder
-    telephone?: SortOrder
     name?: SortOrder
     password?: SortOrder
     verificationCode?: SortOrder
     breakInterval?: SortOrder
     intervalsCount?: SortOrder
     workInterval?: SortOrder
+    role?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -8516,13 +8550,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     email?: SortOrder
-    telephone?: SortOrder
     name?: SortOrder
     password?: SortOrder
     verificationCode?: SortOrder
     breakInterval?: SortOrder
     intervalsCount?: SortOrder
     workInterval?: SortOrder
+    role?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -8530,13 +8564,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     email?: SortOrder
-    telephone?: SortOrder
     name?: SortOrder
     password?: SortOrder
     verificationCode?: SortOrder
     breakInterval?: SortOrder
     intervalsCount?: SortOrder
     workInterval?: SortOrder
+    role?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -8609,6 +8643,16 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type BoolNullableFilter<$PrismaModel = never> = {
@@ -8934,6 +8978,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
+  }
+
   export type TaskTimeManagementUpdateManyWithoutUserNestedInput = {
     create?: XOR<TaskTimeManagementCreateWithoutUserInput, TaskTimeManagementUncheckedCreateWithoutUserInput> | TaskTimeManagementCreateWithoutUserInput[] | TaskTimeManagementUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TaskTimeManagementCreateOrConnectWithoutUserInput | TaskTimeManagementCreateOrConnectWithoutUserInput[]
@@ -9224,6 +9272,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9308,6 +9363,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
@@ -9401,7 +9466,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     name: string
     isCompleted?: boolean | null
-    order?: number
+    order: number
   }
 
   export type TaskTodoUncheckedCreateWithoutUserInput = {
@@ -9410,7 +9475,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     name: string
     isCompleted?: boolean | null
-    order?: number
+    order: number
   }
 
   export type TaskTodoCreateOrConnectWithoutUserInput = {
@@ -9599,13 +9664,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
-    telephone?: string | null
     name?: string | null
     password: string
     verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
+    role?: $Enums.Role
     todo?: TaskTodoCreateNestedManyWithoutUserInput
     timeBlocks?: TimeBlockCreateNestedManyWithoutUserInput
     timerSessions?: TimerSessionCreateNestedManyWithoutUserInput
@@ -9616,13 +9681,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
-    telephone?: string | null
     name?: string | null
     password: string
     verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
+    role?: $Enums.Role
     todo?: TaskTodoUncheckedCreateNestedManyWithoutUserInput
     timeBlocks?: TimeBlockUncheckedCreateNestedManyWithoutUserInput
     timerSessions?: TimerSessionUncheckedCreateNestedManyWithoutUserInput
@@ -9649,13 +9714,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     todo?: TaskTodoUpdateManyWithoutUserNestedInput
     timeBlocks?: TimeBlockUpdateManyWithoutUserNestedInput
     timerSessions?: TimerSessionUpdateManyWithoutUserNestedInput
@@ -9666,13 +9731,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     todo?: TaskTodoUncheckedUpdateManyWithoutUserNestedInput
     timeBlocks?: TimeBlockUncheckedUpdateManyWithoutUserNestedInput
     timerSessions?: TimerSessionUncheckedUpdateManyWithoutUserNestedInput
@@ -9683,13 +9748,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
-    telephone?: string | null
     name?: string | null
     password: string
     verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
+    role?: $Enums.Role
     tasks?: TaskTimeManagementCreateNestedManyWithoutUserInput
     timeBlocks?: TimeBlockCreateNestedManyWithoutUserInput
     timerSessions?: TimerSessionCreateNestedManyWithoutUserInput
@@ -9700,13 +9765,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
-    telephone?: string | null
     name?: string | null
     password: string
     verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
+    role?: $Enums.Role
     tasks?: TaskTimeManagementUncheckedCreateNestedManyWithoutUserInput
     timeBlocks?: TimeBlockUncheckedCreateNestedManyWithoutUserInput
     timerSessions?: TimerSessionUncheckedCreateNestedManyWithoutUserInput
@@ -9733,13 +9798,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     tasks?: TaskTimeManagementUpdateManyWithoutUserNestedInput
     timeBlocks?: TimeBlockUpdateManyWithoutUserNestedInput
     timerSessions?: TimerSessionUpdateManyWithoutUserNestedInput
@@ -9750,13 +9815,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     tasks?: TaskTimeManagementUncheckedUpdateManyWithoutUserNestedInput
     timeBlocks?: TimeBlockUncheckedUpdateManyWithoutUserNestedInput
     timerSessions?: TimerSessionUncheckedUpdateManyWithoutUserNestedInput
@@ -9767,13 +9832,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
-    telephone?: string | null
     name?: string | null
     password: string
     verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
+    role?: $Enums.Role
     tasks?: TaskTimeManagementCreateNestedManyWithoutUserInput
     todo?: TaskTodoCreateNestedManyWithoutUserInput
     timerSessions?: TimerSessionCreateNestedManyWithoutUserInput
@@ -9784,13 +9849,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
-    telephone?: string | null
     name?: string | null
     password: string
     verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
+    role?: $Enums.Role
     tasks?: TaskTimeManagementUncheckedCreateNestedManyWithoutUserInput
     todo?: TaskTodoUncheckedCreateNestedManyWithoutUserInput
     timerSessions?: TimerSessionUncheckedCreateNestedManyWithoutUserInput
@@ -9817,13 +9882,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     tasks?: TaskTimeManagementUpdateManyWithoutUserNestedInput
     todo?: TaskTodoUpdateManyWithoutUserNestedInput
     timerSessions?: TimerSessionUpdateManyWithoutUserNestedInput
@@ -9834,13 +9899,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     tasks?: TaskTimeManagementUncheckedUpdateManyWithoutUserNestedInput
     todo?: TaskTodoUncheckedUpdateManyWithoutUserNestedInput
     timerSessions?: TimerSessionUncheckedUpdateManyWithoutUserNestedInput
@@ -9877,13 +9942,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
-    telephone?: string | null
     name?: string | null
     password: string
     verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
+    role?: $Enums.Role
     tasks?: TaskTimeManagementCreateNestedManyWithoutUserInput
     todo?: TaskTodoCreateNestedManyWithoutUserInput
     timeBlocks?: TimeBlockCreateNestedManyWithoutUserInput
@@ -9894,13 +9959,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     email: string
-    telephone?: string | null
     name?: string | null
     password: string
     verificationCode?: string | null
     breakInterval?: number | null
     intervalsCount?: number | null
     workInterval?: number | null
+    role?: $Enums.Role
     tasks?: TaskTimeManagementUncheckedCreateNestedManyWithoutUserInput
     todo?: TaskTodoUncheckedCreateNestedManyWithoutUserInput
     timeBlocks?: TimeBlockUncheckedCreateNestedManyWithoutUserInput
@@ -9955,13 +10020,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     tasks?: TaskTimeManagementUpdateManyWithoutUserNestedInput
     todo?: TaskTodoUpdateManyWithoutUserNestedInput
     timeBlocks?: TimeBlockUpdateManyWithoutUserNestedInput
@@ -9972,13 +10037,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
-    telephone?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
     breakInterval?: NullableIntFieldUpdateOperationsInput | number | null
     intervalsCount?: NullableIntFieldUpdateOperationsInput | number | null
     workInterval?: NullableIntFieldUpdateOperationsInput | number | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     tasks?: TaskTimeManagementUncheckedUpdateManyWithoutUserNestedInput
     todo?: TaskTodoUncheckedUpdateManyWithoutUserNestedInput
     timeBlocks?: TimeBlockUncheckedUpdateManyWithoutUserNestedInput
@@ -10047,7 +10112,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     name: string
     isCompleted?: boolean | null
-    order?: number
+    order: number
   }
 
   export type TimeBlockCreateManyUserInput = {

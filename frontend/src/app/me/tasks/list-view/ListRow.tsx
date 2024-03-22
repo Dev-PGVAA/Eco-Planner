@@ -10,7 +10,7 @@ import { DatePicker } from '@/components/ui/task-edit/date-picker/DatePicker'
 
 import type {
 	ITaskTimeManagementResponse,
-	TypeTaskFormState
+	TypeTaskTimeManagementFormState
 } from '@/types/task.types'
 
 import { useDeleteTaskTimeManagement } from '../hooks/useDeleteTask'
@@ -25,14 +25,16 @@ interface IListRow {
 }
 
 export function ListRow({ item, setItems, isAutoFocus }: IListRow) {
-	const { register, control, watch } = useForm<TypeTaskFormState>({
-		defaultValues: {
-			name: item.name,
-			isCompleted: item.isCompleted,
-			createdAt: item.createdAt,
-			priority: item.priority
+	const { register, control, watch } = useForm<TypeTaskTimeManagementFormState>(
+		{
+			defaultValues: {
+				name: item.name,
+				isCompleted: item.isCompleted,
+				createdAt: item.createdAt,
+				priority: item.priority
+			}
 		}
-	})
+	)
 
 	useTaskTimeManagementDebounce({ watch, itemId: item.id })
 

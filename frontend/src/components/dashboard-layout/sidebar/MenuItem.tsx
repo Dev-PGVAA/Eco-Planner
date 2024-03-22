@@ -1,7 +1,10 @@
 import cn from 'clsx'
 import Link from 'next/link'
 
+import { useLanguage } from '@/hooks/useLanguage'
+
 import { IMenuItem } from './menu.interface'
+import { translator } from '@/services/translate.service'
 
 export function MenuItem({
 	item,
@@ -10,6 +13,8 @@ export function MenuItem({
 	item: IMenuItem
 	isMinimized: boolean
 }) {
+	const { language } = useLanguage()
+
 	return (
 		<div>
 			<Link
@@ -20,8 +25,8 @@ export function MenuItem({
 				)}
 			>
 				<item.icon />
-				<span className={cn(isMinimized ? 'opacity-0 w-0 h-0' : 'opacity-100')}>
-					{item.name}
+				<span className={cn(isMinimized && 'opacity-0 w-0 h-0')}>
+					{translator(item.name, language)}
 				</span>
 			</Link>
 		</div>

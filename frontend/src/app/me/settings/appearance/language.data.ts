@@ -1,22 +1,29 @@
+import { TypeLanguage } from '@/hooks/useLanguage'
+
 export interface ILanguage {
 	name: string
 	index: string
+	value: TypeLanguage
 }
 export const LANGUAGES: ILanguage[] = [
 	{
 		name: 'English',
-		index: '🇺🇸'
+		index: '🇺🇸',
+		value: 'en'
 	},
 	{
 		name: 'Русский',
-		index: '🇷🇺'
+		index: '🇷🇺',
+		value: 'ru'
 	},
 	{
 		name: 'Deutsch',
-		index: '🇩🇪'
+		index: '🇩🇪',
+		value: 'de'
 	},
 	{
 		name: '中文',
-		index: '🇨🇳'
+		index: '🇨🇳',
+		value: 'zh'
 	}
 ]

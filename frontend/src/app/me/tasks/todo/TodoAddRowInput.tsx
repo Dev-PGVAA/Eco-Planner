@@ -4,6 +4,8 @@ import { ITaskTodoResponse } from '@/types/task.types'
 
 import { useLanguage } from '@/hooks/useLanguage'
 
+import { translator } from '@/services/translate.service'
+
 interface ITodotAddRowInput {
 	setItems: Dispatch<SetStateAction<ITaskTodoResponse[] | undefined>>
 	setIsAutoFocus: Dispatch<SetStateAction<boolean>>
@@ -13,7 +15,8 @@ export function TodoAddRowInput({
 	setItems,
 	setIsAutoFocus
 }: ITodotAddRowInput) {
-	const language: string = useLanguage()
+	const { language } = useLanguage()
+
 	const addRow = () => {
 		setIsAutoFocus(true)
 		setItems(prev => {
@@ -25,7 +28,7 @@ export function TodoAddRowInput({
 					id: '',
 					name: '',
 					isCompleted: false,
-					order: prev.length + 1
+					order: prev.length
 				}
 			]
 		})
@@ -37,13 +40,7 @@ export function TodoAddRowInput({
 				onClick={addRow}
 				className='italic opacity-40 text-sm translate-x-2'
 			>
-				{language === '🇷🇺'
-					? 'Добавить задачу...'
-					: language === '🇩🇪'
-						? 'Aufgabe hinzufügen...'
-						: language === '🇨🇳'
-							? '添加任务...'
-							: 'Add task...'}
+				{translator('Add task...', language)}
 			</button>
 		</div>
 	)

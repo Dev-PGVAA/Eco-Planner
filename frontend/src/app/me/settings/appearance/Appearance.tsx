@@ -13,11 +13,13 @@ import { GoBack } from '../GoBack'
 import styles from '../settings.module.scss'
 
 import { LANGUAGES } from './language.data'
+import { translator } from '@/services/translate.service'
 
 export function Appearance() {
-	const [isDarkTheme, setIsDarkTheme] = useState(false)
+	const [isDarkTheme, setIsDarkTheme] = useState(true)
 	const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false)
-	const language: string = useLanguage()
+
+	const { language, changeLanguage } = useLanguage()
 
 	useEffect(() => {
 		const theme = localStorage.getItem('data-theme')
@@ -34,17 +36,7 @@ export function Appearance() {
 
 	return (
 		<>
-			<Heading
-				title={
-					language === '🇷🇺'
-						? 'Внешний вид - Настройки'
-						: language === '🇩🇪'
-							? 'Erscheinungsbild - Einstellungen'
-							: language === '🇨🇳'
-								? '外观 - 设置'
-								: 'Appearance - Settings'
-				}
-			/>
+			<Heading title={translator('Appearance', language)} />
 			<GoBack />
 			<div className='flex flex-wrap justify-center'>
 				<p className={styles.link}>
@@ -54,13 +46,7 @@ export function Appearance() {
 								<Moon />
 							</i>
 							<span className='ml-3 -translate-y-1'>
-								{language === '🇷🇺'
-									? 'Тёмная тема'
-									: language === '🇩🇪'
-										? 'Dark Subjects'
-										: language === '🇨🇳'
-											? '黑暗题材'
-											: 'Dark theme'}
+								{translator('Dark theme', language)}
 							</span>
 						</span>
 						<button
@@ -81,17 +67,11 @@ export function Appearance() {
 									<Languages />
 								</i>
 								<span className='ml-3 -translate-y-1'>
-									{language === '🇷🇺'
-										? 'Язык'
-										: language === '🇩🇪'
-											? 'Sprache'
-											: language === '🇨🇳'
-												? '语言'
-												: 'Language'}
+									{translator('Language', language)}
 								</span>
 							</span>
 							<button
-								className='flex justify-end'
+								className='flex justify-end absolute w-full z-[2]'
 								onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
 							>
 								<ChevronDown
@@ -117,9 +97,10 @@ export function Appearance() {
 						<button
 							key={item.name}
 							onClick={() => {
-								localStorage.setItem('language', item.index)
+								changeLanguage(item.value)
+								localStorage.setItem('language', item.value)
 								setIsLanguageMenuOpen(false)
-								language !== item.index && window.location.reload()
+								window.location.reload()
 							}}
 						>
 							<p>{item.index}</p>

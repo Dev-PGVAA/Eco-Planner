@@ -1,6 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { TypeTaskFormState } from '@/types/task.types'
+import {
+	TypeTaskTimeManagementFormState,
+	TypeTaskTodoFormState
+} from '@/types/task.types'
 
 import {
 	taskTimeManagementService,
@@ -12,7 +15,7 @@ export function useCreateTaskTimeManagement() {
 
 	const { mutate: createTaskTimeManagement } = useMutation({
 		mutationKey: ['create task'],
-		mutationFn: (data: TypeTaskFormState) =>
+		mutationFn: (data: TypeTaskTimeManagementFormState) =>
 			taskTimeManagementService.createTask(data),
 		onSuccess() {
 			queryClient.invalidateQueries({
@@ -28,7 +31,8 @@ export function useCreateTaskTodo() {
 
 	const { mutate: createTask } = useMutation({
 		mutationKey: ['create task'],
-		mutationFn: (data: TypeTaskFormState) => taskTodoService.createTask(data),
+		mutationFn: (data: TypeTaskTodoFormState) =>
+			taskTodoService.createTask(data),
 		onSuccess() {
 			queryClient.invalidateQueries({
 				queryKey: ['tasks']

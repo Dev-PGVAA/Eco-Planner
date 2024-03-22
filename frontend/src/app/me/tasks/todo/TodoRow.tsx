@@ -24,7 +24,8 @@ export function TodoRow({ item, setItems, isAutoFocus }: IListRow) {
 	const { register, control, watch } = useForm<TypeTaskTodoFormState>({
 		defaultValues: {
 			name: item.name,
-			isCompleted: item.isCompleted
+			isCompleted: item.isCompleted,
+			order: item.order
 		}
 	})
 

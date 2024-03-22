@@ -13,13 +13,13 @@ model User {
   createdAt        DateTime             @default(now()) @map("created_at")
   updatedAt        DateTime             @updatedAt @map("updated_at")
   email            String               @unique
-  telephone        String?              @unique
   name             String?
   password         String
   verificationCode String?              @map("verification_code")
   breakInterval    Int?                 @default(10) @map("break_interval")
   intervalsCount   Int?                 @default(7) @map("intervals_count")
   workInterval     Int?                 @default(50) @map("work_interval")
+  role             Role                 @default(user)
   tasks            TaskTimeManagement[]
   todo             TaskTodo[]
   timeBlocks       TimeBlock[]
@@ -48,7 +48,7 @@ model TaskTodo {
   name        String
   isCompleted Boolean? @default(false) @map("is_completed")
   userId      String   @map("user_id")
-  order       Int      @default(autoincrement())
+  order       Int
   user        User     @relation(fields: [userId], references: [id])
 
   @@map("task_todo")
@@ -98,4 +98,10 @@ enum Priority {
   high
   urgent
   critical
+}
+
+enum Role {
+  user
+  admin
+  creator
 }

@@ -10,10 +10,8 @@ import { DatePicker } from '@/components/ui/task-edit/date-picker/DatePicker'
 
 import type {
 	ITaskTimeManagementResponse,
-	TypeTaskFormState
+	TypeTaskTimeManagementFormState
 } from '@/types/task.types'
-
-import { useLanguage } from '@/hooks/useLanguage'
 
 import { useDeleteTaskTimeManagement } from '../hooks/useDeleteTask'
 import { useTaskTimeManagementDebounce } from '../hooks/useTaskDebounce'
@@ -27,15 +25,16 @@ interface IKanbanCard {
 }
 
 export function KanbanCard({ item, setItems, isAutoFocus }: IKanbanCard) {
-	const language: string = useLanguage()
-	const { register, control, watch } = useForm<TypeTaskFormState>({
-		defaultValues: {
-			name: item.name,
-			isCompleted: item.isCompleted,
-			createdAt: item.createdAt,
-			priority: item.priority
+	const { register, control, watch } = useForm<TypeTaskTimeManagementFormState>(
+		{
+			defaultValues: {
+				name: item.name,
+				isCompleted: item.isCompleted,
+				createdAt: item.createdAt,
+				priority: item.priority
+			}
 		}
-	})
+	)
 
 	useTaskTimeManagementDebounce({ watch, itemId: item.id })
 

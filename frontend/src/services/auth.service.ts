@@ -5,7 +5,15 @@ import { axiosClassic } from '@/api/interceptors'
 import { removeFromStorage, saveTokenStorage } from './auth-token.service'
 
 export const authService = {
-	async main(type: 'login' | 'register', data: IAuthForm) {
+	async main(
+		type:
+			| 'login'
+			| 'register'
+			| 'forgot-password'
+			| 'verification-code'
+			| 'new-password',
+		data: IAuthForm
+	) {
 		const response = await axiosClassic.post<IAuthResponse>(
 			`/auth/${type}`,
 			data

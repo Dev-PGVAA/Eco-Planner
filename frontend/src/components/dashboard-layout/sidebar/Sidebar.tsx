@@ -7,10 +7,12 @@ import { Dispatch, SetStateAction, useEffect } from 'react'
 
 import { COLORS } from '@/constants/color.constants'
 
+import { useProfile } from '@/hooks/useProfile'
+
 import styles from '../dashboard-layout.module.scss'
 
 import { MenuItem } from './MenuItem'
-import { MENU } from './menu.data'
+import { MENU, MENU_ADMIN } from './menu.data'
 import { useTimer } from '@/app/me/timer/hooks/useTimer'
 
 export function Sidebar({
@@ -21,6 +23,7 @@ export function Sidebar({
 	setIsMinimized: Dispatch<SetStateAction<boolean>>
 }) {
 	const timerState = useTimer()
+	const { data } = useProfile()
 
 	useEffect(() => {
 		timerState.setIsRunning(sessionStorage.getItem('TimerIsRunning') === 'true')
@@ -36,7 +39,7 @@ export function Sidebar({
 					<GanttChartSquare
 						color={COLORS.primary}
 						size={38}
-						className={cn(isMinimized && 'translate-x-[5px]')}
+						className={cn(isMinimized && 'translate-x-[5px]', 'duration-500')}
 					/>
 					<span
 						className={cn(
@@ -51,13 +54,21 @@ export function Sidebar({
 					</span>
 				</Link>
 				<div className='p-3 relative'>
-					{MENU.map(item => (
-						<MenuItem
-							item={item}
-							key={item.link}
-							isMinimized={isMinimized}
-						/>
-					))}
+					{data?.user.role !== 'user'
+						? MENU_ADMIN.map(item => (
+								<MenuItem
+									item={item}
+									key={item.link}
+									isMinimized={isMinimized}
+								/>
+							))
+						: MENU.map(item => (
+								<MenuItem
+									item={item}
+									key={item.link}
+									isMinimized={isMinimized}
+								/>
+							))}
 				</div>
 			</div>
 			<footer

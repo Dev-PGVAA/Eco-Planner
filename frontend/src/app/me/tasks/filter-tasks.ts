@@ -64,6 +64,6 @@ export const filterTasksByTime = (
 	}
 }
 
-export const filterTasksByOrder = (tasks: ITaskTodoResponse[] | undefined) => {
+export const filterTasksByOrder = (tasks: ITaskTodoResponse[]) => {
 	return tasks?.sort((a, b) => a.order - b.order)
 }

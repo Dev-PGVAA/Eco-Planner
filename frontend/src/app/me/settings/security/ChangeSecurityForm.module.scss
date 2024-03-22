@@ -16,7 +16,7 @@
 			outline: 2px solid #525a76;
 		}
 		&::placeholder {
-			color: rgba(var(--line), 0.5);
+			color: rgba(var(--line-rgb), 0.5);
 		}
 	}
 	button {

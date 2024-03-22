@@ -1,10 +1,10 @@
 import { useRouter } from 'next/navigation'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
 import LoginForm from './loginForm/loginForm'
 import SignUpForm from './signUpForm/signUpForm'
 
-const Aside: FC = () => {
+const Aside = () => {
 	const { push } = useRouter()
 	const [isHaveAnAccount, setIsHaveAnAccount] = useState(false)
 

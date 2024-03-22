@@ -1,9 +1,11 @@
 import { useMutation } from '@tanstack/react-query'
 import { Eye, EyeOff } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+
+import { Modal } from '@/components/modals/Modal'
 
 import { IAuthForm } from '@/types/auth.types'
 
@@ -15,9 +17,10 @@ import styles from '../auth.module.scss'
 
 import { authService } from '@/services/auth.service'
 
-const loginForm: FC = () => {
+const loginForm = () => {
 	const [error, setError] = useState('')
 	const [isShowPassword, setIsShowPassword] = useState('password')
+	const [isOpenModal, setIsOpenModal] = useState(false)
 
 	const ShowPassword = () => {
 		if (isShowPassword === 'password') setIsShowPassword('text')
@@ -59,7 +62,7 @@ const loginForm: FC = () => {
 					placeholder='Enter your email'
 					className={styles.input}
 					{...register('email', {
-						required: 'Email or telephone is required!'
+						required: 'Email is required!'
 					})}
 				/>
 				<p>Password</p>
@@ -89,11 +92,17 @@ const loginForm: FC = () => {
 			</form>
 			<button
 				className={styles.forgotPassword}
-				onClick={() => {}}
+				onClick={() => setIsOpenModal(true)}
 			>
 				Forgot Password?
 			</button>
 			<br />
+			{isOpenModal && (
+				<Modal
+					type='forgot-password'
+					setIsOpenModal={setIsOpenModal}
+				/>
+			)}
 		</>
 	)
 }

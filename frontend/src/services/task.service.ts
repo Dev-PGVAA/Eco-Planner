@@ -1,4 +1,9 @@
-import type { ITaskResponse, TypeTaskFormState } from '@/types/task.types'
+import type {
+	ITaskTimeManagementResponse,
+	ITaskTodoResponse,
+	TypeTaskTimeManagementFormState,
+	TypeTaskTodoFormState
+} from '@/types/task.types'
 
 import { axiosWithAuth } from '@/api/interceptors'
 
@@ -6,16 +11,18 @@ class TaskTimeManagementService {
 	private BASE_URL = '/user/tasks/time-management'
 
 	async getTasks() {
-		const response = await axiosWithAuth.get<ITaskResponse[]>(this.BASE_URL)
+		const response = await axiosWithAuth.get<ITaskTimeManagementResponse[]>(
+			this.BASE_URL
+		)
 		return response
 	}
 
-	async createTask(data: TypeTaskFormState) {
+	async createTask(data: TypeTaskTimeManagementFormState) {
 		const response = await axiosWithAuth.post(this.BASE_URL, data)
 		return response
 	}
 
-	async updateTask(id: string, data: TypeTaskFormState) {
+	async updateTask(id: string, data: TypeTaskTimeManagementFormState) {
 		const response = await axiosWithAuth.put(`${this.BASE_URL}/${id}`, data)
 		return response
 	}
@@ -30,16 +37,16 @@ class TaskTodoService {
 	private BASE_URL = '/user/tasks/todo'
 
 	async getTasks() {
-		const response = await axiosWithAuth.get<ITaskResponse[]>(this.BASE_URL)
+		const response = await axiosWithAuth.get<ITaskTodoResponse[]>(this.BASE_URL)
 		return response
 	}
 
-	async createTask(data: TypeTaskFormState) {
+	async createTask(data: TypeTaskTodoFormState) {
 		const response = await axiosWithAuth.post(this.BASE_URL, data)
 		return response
 	}
 
-	async updateTask(id: string, data: TypeTaskFormState) {
+	async updateTask(id: string, data: TypeTaskTodoFormState) {
 		const response = await axiosWithAuth.put(`${this.BASE_URL}/${id}`, data)
 		return response
 	}

@@ -42,29 +42,17 @@ export function useTaskTodoDnd() {
 	const { updateTask } = useUpdateTaskTodo()
 
 	const onDragEnd = (result: DropResult) => {
+		console.log(result)
 		if (!result.destination) return
 
-		const destinationColumnId = result.destination.droppableId
+		const destinationRowId = result.destination.index
 
-		if (destinationColumnId === result.source.droppableId) return
-
-		if (destinationColumnId === 'completed') {
-			updateTask({
-				id: result.draggableId,
-				data: {
-					isCompleted: true
-				}
-			})
-
-			return
-		}
-
-		const newCreatedAt = FILTERS[destinationColumnId].format()
+		if (destinationRowId === result.source.index) return
 
 		updateTask({
 			id: result.draggableId,
 			data: {
-				createdAt: newCreatedAt,
+				order: result.destination.index,
 				isCompleted: false
 			}
 		})

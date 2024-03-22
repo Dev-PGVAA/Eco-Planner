@@ -2,13 +2,16 @@ import debounce from 'lodash.debounce'
 import { useCallback, useEffect } from 'react'
 import { UseFormWatch } from 'react-hook-form'
 
-import { TypeTaskFormState } from '@/types/task.types'
+import {
+	TypeTaskTimeManagementFormState,
+	TypeTaskTodoFormState
+} from '@/types/task.types'
 
 import { useCreateTaskTimeManagement, useCreateTaskTodo } from './useCreateTask'
 import { useUpdateTaskTimeManagement, useUpdateTaskTodo } from './useUpdateTask'
 
 interface IUseTaskDebounce {
-	watch: UseFormWatch<TypeTaskFormState>
+	watch: UseFormWatch<TypeTaskTimeManagementFormState>
 	itemId: string
 }
 
@@ -20,7 +23,7 @@ export function useTaskTimeManagementDebounce({
 	const { updateTaskTimeManagement } = useUpdateTaskTimeManagement()
 
 	const debouncedCreateTask = useCallback(
-		debounce((formData: TypeTaskFormState) => {
+		debounce((formData: TypeTaskTimeManagementFormState) => {
 			createTaskTimeManagement(formData)
 		}, 444),
 		[]
@@ -28,7 +31,7 @@ export function useTaskTimeManagementDebounce({
 
 	// Теперь debouncedUpdateTask будет сохраняться между рендерами, и debounce будет работать как ожидается.
 	const debouncedUpdateTask = useCallback(
-		debounce((formData: TypeTaskFormState) => {
+		debounce((formData: TypeTaskTimeManagementFormState) => {
 			updateTaskTimeManagement({ id: itemId, data: formData })
 		}, 444),
 		[]
@@ -57,7 +60,7 @@ export function useTaskTodoDebounce({ watch, itemId }: IUseTaskDebounce) {
 	const { updateTask } = useUpdateTaskTodo()
 
 	const debouncedCreateTask = useCallback(
-		debounce((formData: TypeTaskFormState) => {
+		debounce((formData: TypeTaskTodoFormState) => {
 			createTask(formData)
 		}, 444),
 		[]
@@ -65,7 +68,7 @@ export function useTaskTodoDebounce({ watch, itemId }: IUseTaskDebounce) {
 
 	// Теперь debouncedUpdateTask будет сохраняться между рендерами, и debounce будет работать как ожидается.
 	const debouncedUpdateTask = useCallback(
-		debounce((formData: TypeTaskFormState) => {
+		debounce((formData: TypeTaskTodoFormState) => {
 			updateTask({ id: itemId, data: formData })
 		}, 444),
 		[]
@@ -75,8 +78,7 @@ export function useTaskTodoDebounce({ watch, itemId }: IUseTaskDebounce) {
 		const { unsubscribe } = watch(formData => {
 			if (itemId) {
 				debouncedUpdateTask({
-					...formData,
-					priority: formData.priority || undefined
+					...formData
 				})
 			} else {
 				debouncedCreateTask(formData)

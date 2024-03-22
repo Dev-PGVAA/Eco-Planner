@@ -3,6 +3,8 @@ import { Dispatch, SetStateAction, useState } from 'react'
 
 import { ITaskTodoResponse } from '@/types/task.types'
 
+import { filterTasksByOrder } from '../filter-tasks'
+
 import { TodoAddRowInput } from './TodoAddRowInput'
 import { TodoRow } from './TodoRow'
 
@@ -13,49 +15,38 @@ interface ITodoRowParent {
 
 export function TodoRowParent({ items, setItems }: ITodoRowParent) {
 	const [isAutoFocus, setIsAutoFocus] = useState(false)
+	const [draggableId, setDraggableId] = useState<string>('0')
 
 	return (
-		<Droppable droppableId='todo'>
+		<Droppable droppableId={draggableId}>
 			{provided => (
 				<div
 					ref={provided.innerRef}
 					{...provided.droppableProps}
 				>
-					<Draggable
-						draggableId='todo'
-						index={0}
-					>
-						{provided => (
-							<div
-								ref={provided.innerRef}
-								{...provided.draggableProps}
-								{...provided.dragHandleProps}
-							>
-								{items?.map((item, index) => (
-									<Draggable
+					{items?.map((item: ITaskTodoResponse, index: number) => (
+						<Draggable
+							key={item.id}
+							draggableId={item.id}
+							index={index}
+						>
+							{provided => (
+								<div
+									ref={provided.innerRef}
+									{...provided.draggableProps}
+									{...provided.dragHandleProps}
+									onDrag={() => setDraggableId(item.id)}
+								>
+									<TodoRow
 										key={item.id}
-										draggableId={item.id}
-										index={index}
-									>
-										{provided => (
-											<div
-												ref={provided.innerRef}
-												{...provided.draggableProps}
-												{...provided.dragHandleProps}
-											>
-												<TodoRow
-													key={item.id}
-													item={item}
-													setItems={setItems}
-													isAutoFocus={isAutoFocus}
-												/>
-											</div>
-										)}
-									</Draggable>
-								))}
-							</div>
-						)}
-					</Draggable>
+										item={items && filterTasksByOrder(items)[index]}
+										setItems={setItems}
+										isAutoFocus={isAutoFocus}
+									/>
+								</div>
+							)}
+						</Draggable>
+					))}
 					{provided.placeholder}
 
 					{!items?.some(item => !item.id) && (

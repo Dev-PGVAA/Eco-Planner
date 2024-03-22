@@ -14,10 +14,11 @@ import { useUpdateSettings } from '../(hooks)/useUpdateSettings'
 import { GoBack } from '../GoBack'
 
 import styles from './ChangeTimerForm.module.scss'
+import { translator } from '@/services/translate.service'
 
 export function ChangeTimerForm() {
 	const [isShowPassword, setIsShowPassword] = useState('password')
-	const language: string = useLanguage()
+	const { language } = useLanguage()
 
 	const { register, handleSubmit, reset } = useForm<TypeUserForm>({
 		mode: 'onChange'
@@ -43,96 +44,35 @@ export function ChangeTimerForm() {
 
 	return (
 		<>
-			<Heading
-				title={
-					language === '🇷🇺'
-						? 'Таймер - Настройки'
-						: language === '🇩🇪'
-							? 'Timer - Einstellungen'
-							: language === '🇨🇳'
-								? '计时器 - 设置'
-								: 'Timer - Settings'
-				}
-			/>
+			<Heading title={translator('Timer', language)} />
 			<GoBack />
 			<form
 				className={styles.form}
 				onSubmit={handleSubmit(onSubmit)}
 			>
-				<p>
-					{' '}
-					{language === '🇷🇺'
-						? 'Интервал работы (мин.):'
-						: language === '🇩🇪'
-							? 'Work interval (min.): '
-							: language === '🇨🇳'
-								? '工作间隔（最小）：'
-								: 'Work interval (min.): '}
-				</p>
+				<p>{translator('Work interval (min.):', language)}</p>
 				<input
 					type='number'
 					className={styles.input}
-					placeholder={
-						language === '🇷🇺'
-							? 'Введите интервал работы (мин.):'
-							: language === '🇩🇪'
-								? 'Arbeitsintervall (min.):'
-								: language === '🇨🇳'
-									? '输入工作间隔（分钟）：'
-									: 'Enter work interval (min.):'
-					}
+					placeholder={translator('Enter work interval:', language)}
 					{...register('workInterval', {
 						valueAsNumber: true
 					})}
 				/>
-				<p>
-					{' '}
-					{language === '🇷🇺'
-						? 'Интервал перерыва (мин.):'
-						: language === '🇩🇪'
-							? 'Pausenintervall (min.):'
-							: language === '🇨🇳'
-								? '休息间隔（分钟）：'
-								: 'Break interval (minutes):'}
-				</p>
+				<p>{translator('Break interval (min.):', language)}</p>
 				<input
 					type='number'
 					className={styles.input}
-					placeholder={
-						language === '🇷🇺'
-							? 'Введите интервал перерыва (мин.):'
-							: language === '🇩🇪'
-								? 'Pausenintervall (min.):'
-								: language === '🇨🇳'
-									? '输入休息间隔（分钟）：'
-									: 'Enter break interval (min.):'
-					}
+					placeholder={translator('Enter break interval:', language)}
 					{...register('breakInterval', {
 						valueAsNumber: true
 					})}
 				/>
-				<p>
-					{' '}
-					{language === '🇷🇺'
-						? 'Количество интервалов (макс. 10):'
-						: language === '🇩🇪'
-							? 'Anzahl der Intervalle (max. 10):'
-							: language === '🇨🇳'
-								? '间隔数量（最多10）：'
-								: 'Intervals count (max 10):'}
-				</p>
+				<p>{translator('Intervals count (max 10):', language)}</p>
 				<input
 					type='number'
 					className={styles.input}
-					placeholder={
-						language === '🇷🇺'
-							? 'Введите количество интервалов (макс. 10):'
-							: language === '🇩🇪'
-								? 'Anzahl der Intervalle (max. 10):'
-								: language === '🇨🇳'
-									? '输入间隔数量（最多10）：'
-									: 'Enter intervals count (max 10):'
-					}
+					placeholder={translator('Enter intervals count:', language)}
 					{...register('intervalsCount', {
 						valueAsNumber: true
 					})}
@@ -141,13 +81,7 @@ export function ChangeTimerForm() {
 					type='submit'
 					disabled={isPending}
 				>
-					{language === '🇷🇺'
-						? 'Сохранить'
-						: language === '🇩🇪'
-							? 'Speichern'
-							: language === '🇨🇳'
-								? '保存'
-								: 'Save'}
+					{translator('Save', language)}
 				</button>
 			</form>
 		</>

@@ -6,6 +6,7 @@ import { CalendarCheck, Kanban, ListTodo } from 'lucide-react'
 import { useLanguage } from '@/hooks/useLanguage'
 
 import type { TypeView } from './TasksView'
+import { translator } from '@/services/translate.service'
 
 interface ISwitcherView {
 	type: TypeView
@@ -13,7 +14,7 @@ interface ISwitcherView {
 }
 
 export function SwitcherView({ setType, type }: ISwitcherView) {
-	const language: string = useLanguage()
+	const { language } = useLanguage()
 
 	return (
 		<div className='flex items-center gap-4 mb-5'>
@@ -24,13 +25,7 @@ export function SwitcherView({ setType, type }: ISwitcherView) {
 				onClick={() => setType('list')}
 			>
 				<CalendarCheck />
-				{language === '🇷🇺'
-					? 'Лист'
-					: language === '🇩🇪'
-						? 'Liste'
-						: language === '🇨🇳'
-							? '清单'
-							: 'List'}
+				{translator('List', language)}
 			</button>
 			<button
 				className={cn('flex items-center gap-1', {
@@ -39,13 +34,7 @@ export function SwitcherView({ setType, type }: ISwitcherView) {
 				onClick={() => setType('kanban')}
 			>
 				<Kanban />
-				{language === '🇷🇺'
-					? 'Доска'
-					: language === '🇩🇪'
-						? 'Tafel'
-						: language === '🇨🇳'
-							? '看板'
-							: 'Board'}
+				{translator('Kanban', language)}
 			</button>
 			<button
 				className={cn('flex items-center gap-1', {
@@ -54,13 +43,7 @@ export function SwitcherView({ setType, type }: ISwitcherView) {
 				onClick={() => setType('todo')}
 			>
 				<ListTodo />
-				{language === '🇷🇺'
-					? 'Список задач'
-					: language === '🇩🇪'
-						? 'Aufgabenliste'
-						: language === '🇨🇳'
-							? '任务列表'
-							: 'Todo list'}
+				{translator('Todo', language)}
 			</button>
 		</div>
 	)

@@ -9,6 +9,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 	const refreshToken = cookies.get(EnumTokens.REFRESH_TOKEN)
 
 	const isAuthPage = url.includes('/auth')
+	const isAdminPage = url.includes('/admin')
 
 	if (isAuthPage && refreshToken) {
 		return NextResponse.redirect(new URL(DASHBOARD_PAGES.HOME, url))
@@ -20,6 +21,10 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
 	if (!refreshToken) {
 		return NextResponse.redirect(new URL('/auth', request.url))
+	}
+
+	if (isAdminPage) {
+		return NextResponse.redirect(new URL(DASHBOARD_PAGES.HOME, url))
 	}
 
 	return NextResponse.next()

@@ -12,11 +12,12 @@ import { SwitcherView } from './SwitcherView'
 import { KanbanView } from './kanban-view/KanbanView'
 import { ListView } from './list-view/ListView'
 import { TodoView } from './todo/TodoView'
+import { translator } from '@/services/translate.service'
 
 export type TypeView = 'list' | 'kanban' | 'todo'
 
 function TasksView() {
-	const language: string = useLanguage()
+	const { language } = useLanguage()
 	const [type, setType, isLoading] = useLocalStorage<TypeView>({
 		key: 'view-type',
 		defaultValue: 'list'
@@ -26,17 +27,7 @@ function TasksView() {
 
 	return (
 		<>
-			<Heading
-				title={
-					language === '🇷🇺'
-						? 'Задачи'
-						: language === '🇩🇪'
-							? 'Aufgaben'
-							: language === '🇨🇳'
-								? '任务'
-								: 'Tasks'
-				}
-			/>
+			<Heading title={translator('Tasks', language)} />
 			<div>
 				<SwitcherView
 					setType={setType}

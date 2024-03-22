@@ -31,7 +31,20 @@ export function Profile() {
 			) : (
 				<div className='flex cursor-default'>
 					<div className='text-right mr-3'>
-						<p className='font-bold -mb-1'>{data?.user.name}</p>
+						<p className='font-bold -mb-1 flex items-center justify-end'>
+							{data?.user.name}
+							{data?.user.role !== 'user' && (
+								<span
+									className={cn(
+										'rounded ml-2 py-[1px] px-1 text-[12px]',
+										data?.user.role === 'admin' && 'bg-[#146aeab1]',
+										data?.user.role === 'creator' && 'bg-[#ea5b14b1]'
+									)}
+								>
+									{data?.user.role}
+								</span>
+							)}
+						</p>
 						<p className='text-sm opacity-40'>{data?.user.email}</p>
 					</div>
 

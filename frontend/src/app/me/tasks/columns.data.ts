@@ -5,13 +5,10 @@ import isoWeek from 'dayjs/plugin/isoWeek'
 // ISO неделя
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 
-import { useLanguage } from '@/hooks/useLanguage'
-
 // плагин для работы с неделями
 
 dayjs.extend(weekOfYear)
 dayjs.extend(isoWeek)
-const language: string = useLanguage()
 
 export const FILTERS: Record<string, Dayjs> = {
 	today: dayjs().startOf('day'),
@@ -23,69 +20,27 @@ export const FILTERS: Record<string, Dayjs> = {
 
 export const COLUMNS = [
 	{
-		label:
-			language === '🇷🇺'
-				? 'Сегодня'
-				: language === '🇩🇪'
-					? 'Heute'
-					: language === '🇨🇳'
-						? '今天'
-						: 'Today',
+		label: 'Today',
 		value: 'today'
 	},
 	{
-		label:
-			language === '🇷🇺'
-				? 'Завтра'
-				: language === '🇩🇪'
-					? 'Morgen'
-					: language === '🇨🇳'
-						? '明天'
-						: 'Tomorrow',
+		label: 'Tomorrow',
 		value: 'tomorrow'
 	},
 	{
-		label:
-			language === '🇷🇺'
-				? 'На этой неделе'
-				: language === '🇩🇪'
-					? 'Diese Woche'
-					: language === '🇨🇳'
-						? '这周'
-						: 'On this week',
+		label: 'On this week',
 		value: 'on-this-week'
 	},
 	{
-		label:
-			language === '🇷🇺'
-				? 'На следующей неделе'
-				: language === '🇩🇪'
-					? 'Nächste Woche'
-					: language === '🇨🇳'
-						? '下周'
-						: 'On next week',
+		label: 'On next week',
 		value: 'on-next-week'
 	},
 	{
-		label:
-			language === '🇷🇺'
-				? 'Позже'
-				: language === '🇩🇪'
-					? 'Später'
-					: language === '🇨🇳'
-						? '以后'
-						: 'Later',
+		label: 'Later',
 		value: 'later'
 	},
 	{
-		label:
-			language === '🇷🇺'
-				? 'Завершенные'
-				: language === '🇩🇪'
-					? 'Abgeschlossen'
-					: language === '🇨🇳'
-						? '已完成'
-						: 'Completed',
+		label: 'Completed',
 		value: 'completed'
 	}
 ]

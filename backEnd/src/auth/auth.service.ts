@@ -6,6 +6,8 @@ import {
 import { JwtService } from '@nestjs/jwt'
 import { verify } from 'argon2'
 import { Response } from 'express'
+import { MailService } from 'src/mail/mail.service'
+import { PrismaService } from 'src/prisma.service'
 import { UserService } from './../user/user.service'
 import { AuthLoginDto, AuthRegisterDto } from './dto/auth.dto'
 
@@ -16,11 +18,13 @@ export class AuthService {
 
 	constructor(
 		private jwt: JwtService,
-		private UserService: UserService
+		private UserService: UserService,
+		private MailService: MailService,
+		private prisma: PrismaService
 	) {}
 
 	async login(dto: AuthLoginDto) {
-		const { password, ...user } = await this.validateUser(dto)
+		const { password, role, ...user } = await this.validateUser(dto)
 		const tokens = this.issueTokens(user.id)
 
 		return {
@@ -35,7 +39,7 @@ export class AuthService {
 		if (oldUserEmail)
 			throw new UnauthorizedException('User with this email already exists')
 
-		const { password, ...user } = await this.UserService.create(dto)
+		const { password, role, ...user } = await this.UserService.create(dto)
 
 		const tokens = this.issueTokens(user.id)
 
@@ -43,6 +47,54 @@ export class AuthService {
 			user,
 			...tokens
 		}
+	}
+
+	async forgotPassword(email: string) {
+		const user = await this.UserService.getByEmail(email)
+
+		if (!user) throw new NotFoundException('User not found')
+
+		const VERIFICATION_CODE =
+			this.UserService.createRandomVerificationCode(email)
+
+		await this.prisma.user.update({
+			where: { email },
+			data: { verificationCode: VERIFICATION_CODE }
+		})
+
+		const { response } = this.MailService.sendMail(
+			email,
+			VERIFICATION_CODE,
+			'verification-code'
+		)
+
+		return response
+	}
+
+	async verificationCode(email: string, userCode: string) {
+		const user = await this.prisma.user.findUnique({
+			where: { email },
+			select: { verificationCode: true }
+		})
+
+		if (userCode !== user.verificationCode)
+			throw new UnauthorizedException('Invalid verification code')
+		await this.prisma.user.update({
+			where: { email },
+			data: { verificationCode: null }
+		})
+
+		return { message: 'Verification code is correct' }
+	}
+
+	async newPassword(dto: AuthLoginDto) {
+		const user = await this.UserService.getByEmail(dto.email)
+
+		if (!user) throw new NotFoundException('User not found')
+
+		await this.UserService.update(user.id, { password: dto.password })
+
+		return { message: 'Password has been changed' }
 	}
 
 	private issueTokens(userId: string) {
@@ -98,15 +150,6 @@ export class AuthService {
 			user,
 			...tokens
 		}
-	}
-
-	async verificationCode(email: string, code: number) {
-		const user = await this.UserService.getByEmail(email)
-
-		if (user.verificationCode !== code.toString())
-			throw new UnauthorizedException('Invalid verification code')
-
-		return 'Verification success'
 	}
 
 	removeRefreshTokenToResponse(res: Response) {

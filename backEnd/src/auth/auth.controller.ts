@@ -14,7 +14,8 @@ import { AuthService } from './auth.service'
 import {
 	AuthLoginDto,
 	AuthRegisterDto,
-	VerificationCodeDto
+	ForgotPasswordDto,
+	ForgotPasswordEmailDto
 } from './dto/auth.dto'
 
 @Controller('auth')
@@ -47,6 +48,36 @@ export class AuthController {
 		return response
 	}
 
+	@UsePipes(new ValidationPipe())
+	@HttpCode(200)
+	@Post('forgot-password')
+	async forgotPassword(@Body() dto: ForgotPasswordEmailDto) {
+		const response = await this.authService.forgotPassword(dto.email)
+
+		return response
+	}
+
+	@UsePipes(new ValidationPipe())
+	@HttpCode(200)
+	@Post('verification-code')
+	async verificationCode(@Body() dto: ForgotPasswordDto) {
+		const response = await this.authService.verificationCode(
+			dto.email,
+			dto.code
+		)
+
+		return response
+	}
+
+	@UsePipes(new ValidationPipe())
+	@HttpCode(200)
+	@Post('new-password')
+	async newPassword(@Body() dto: AuthLoginDto) {
+		const response = await this.authService.newPassword(dto)
+
+		return response
+	}
+
 	@HttpCode(200)
 	@Post('login/access-token')
 	async getNewTokens(
@@ -67,12 +98,6 @@ export class AuthController {
 		this.authService.addRefreshTokenToResponse(res, refreshToken)
 
 		return response
-	}
-
-	@HttpCode(200)
-	@Post('verification-code')
-	async verificationCode(@Body() dto: VerificationCodeDto) {
-		return this.authService.verificationCode(dto.email, dto.code)
 	}
 
 	@HttpCode(200)

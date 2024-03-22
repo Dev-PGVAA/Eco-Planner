@@ -4,6 +4,7 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { Modal } from '@/components/modals/Modal'
 import { Heading } from '@/components/ui/Heading'
 
 import { TypeUserForm } from '@/types/auth.types'
@@ -15,10 +16,12 @@ import { useUpdateSettings } from '../(hooks)/useUpdateSettings'
 import { GoBack } from '../GoBack'
 
 import styles from './ChangeSecurityForm.module.scss'
+import { translator } from '@/services/translate.service'
 
 export function ChangeSecurityForm() {
 	const [isShowPassword, setIsShowPassword] = useState('password')
-	const language: string = useLanguage()
+	const { language } = useLanguage()
+	const [isOpenModal, setIsOpenModal] = useState(false)
 
 	const { register, handleSubmit, reset } = useForm<TypeUserForm>({
 		mode: 'onChange'
@@ -44,95 +47,34 @@ export function ChangeSecurityForm() {
 
 	return (
 		<>
-			<Heading
-				title={
-					language === '🇷🇺'
-						? 'Безопасность - Настройки'
-						: language === '🇩🇪'
-							? 'Sicherheit - Einstellungen'
-							: language === '🇨🇳'
-								? '安全 - 设置'
-								: 'Security - Settings'
-				}
-			/>
+			<Heading title={translator('Security', language)} />
 			<GoBack />
 			<form
 				className={styles.form}
 				onSubmit={handleSubmit(onSubmit)}
 			>
-				<p>
-					{' '}
-					{language === '🇷🇺'
-						? 'Имя'
-						: language === '🇩🇪'
-							? 'Name'
-							: language === '🇨🇳'
-								? '名称'
-								: 'Name'}
-				</p>
+				<p>{translator('Name', language)}</p>
 				<input
 					type='text'
 					className={styles.input}
-					placeholder={
-						language === '🇷🇺'
-							? 'Введите новое имя'
-							: language === '🇩🇪'
-								? 'Geben Sie einen neuen Namen ein'
-								: language === '🇨🇳'
-									? '输入新名称'
-									: 'Enter new name'
-					}
+					placeholder={translator('Enter new name', language)}
 					{...register('name')}
 				/>
-				<p>
-					{' '}
-					{language === '🇷🇺'
-						? 'Почта'
-						: language === '🇩🇪'
-							? 'E-Mail'
-							: language === '🇨🇳'
-								? '电子邮件'
-								: 'Mail'}
-				</p>
+				<p>{translator('Mail', language)}</p>
 				<input
 					type='email'
 					className={styles.input}
-					placeholder={
-						language === '🇷🇺'
-							? 'Введите новый адрес электронной почты'
-							: language === '🇩🇪'
-								? 'Geben Sie eine neue E-Mail-Adresse ein'
-								: language === '🇨🇳'
-									? '输入新电子邮件地址'
-									: 'Enter new email address'
-					}
+					placeholder={translator('Enter new mail', language)}
 					{...register('email', {
 						required: 'Email is required!'
 					})}
 				/>
-				<p>
-					{' '}
-					{language === '🇷🇺'
-						? 'Пароль'
-						: language === '🇩🇪'
-							? 'Passwort'
-							: language === '🇨🇳'
-								? '密码'
-								: 'Password'}
-				</p>
+				<p>{translator('Password', language)}</p>
 				<span>
 					<input
 						type={isShowPassword}
 						className={styles.input}
-						placeholder={
-							language === '🇷🇺'
-								? 'Введите новый пароль'
-								: language === '🇩🇪'
-									? 'Geben Sie ein neues Passwort ein'
-									: language === '🇨🇳'
-										? '输入新密码'
-										: 'Enter new password'
-						}
+						placeholder={translator('Enter new password', language)}
 						{...register('password')}
 					/>
 					<i
@@ -142,19 +84,16 @@ export function ChangeSecurityForm() {
 						{isShowPassword === 'password' ? <EyeOff /> : <Eye />}
 					</i>
 				</span>
-				<button
-					type='submit'
-					disabled={isPending}
-				>
-					{language === '🇷🇺'
-						? 'Сохранить'
-						: language === '🇩🇪'
-							? 'Speichern'
-							: language === '🇨🇳'
-								? '保存'
-								: 'Save'}
-				</button>
+				<p onClick={() => setIsOpenModal(true)}>
+					{translator('Save', language)}
+				</p>
 			</form>
+			{isOpenModal && (
+				<Modal
+					type='new-password'
+					setIsOpenModal={setIsOpenModal}
+				/>
+			)}
 		</>
 	)
 }

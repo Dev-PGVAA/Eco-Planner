@@ -10,24 +10,15 @@ import { useLanguage } from '@/hooks/useLanguage'
 
 import { TimeBlockingList } from './TimeBlockingList'
 import { TimeBlockingForm } from './form/TimeBlockingForm'
+import { translator } from '@/services/translate.service'
 
 export function TimeBlocking() {
 	const methods = useForm<TypeTimeBlockFormState>()
-	const language: string = useLanguage()
+	const { language } = useLanguage()
 
 	return (
 		<>
-			<Heading
-				title={
-					language === '🇷🇺'
-						? 'Рутинные дела'
-						: language === '🇩🇪'
-							? 'Zeitblockierung'
-							: language === '🇨🇳'
-								? '时间堵塞'
-								: 'Time blocking'
-				}
-			/>
+			<Heading title={translator('Time blocking', language)} />
 			<FormProvider {...methods}>
 				<div className='grid grid-cols-2 gap-12'>
 					<TimeBlockingList />

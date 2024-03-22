@@ -18,6 +18,7 @@ export class TaskTodoService {
 		return this.prisma.taskTodo.create({
 			data: {
 				...dto,
+				order: dto.order,
 				user: {
 					connect: {
 						id: userId

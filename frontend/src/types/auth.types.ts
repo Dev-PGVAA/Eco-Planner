@@ -1,13 +1,16 @@
 export interface IAuthForm {
 	email: string
-	password: string
+	password?: string
+	repeatPassword?: string
 	name?: string
+	code?: string // verification code
 }
 
 export interface IUser {
 	id: number
 	name?: string
 	email: string
+	role: string
 
 	workInterval?: number
 	breakInterval?: number

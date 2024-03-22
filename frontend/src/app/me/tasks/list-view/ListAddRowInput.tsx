@@ -5,6 +5,7 @@ import { ITaskTimeManagementResponse } from '@/types/task.types'
 import { useLanguage } from '@/hooks/useLanguage'
 
 import styles from './ListView.module.scss'
+import { translator } from '@/services/translate.service'
 
 interface IListAddRowInput {
 	filterDate?: string
@@ -17,7 +18,8 @@ export function ListAddRowInput({
 	filterDate,
 	setIsAutoFocus
 }: IListAddRowInput) {
-	const language: string = useLanguage()
+	const { language } = useLanguage()
+
 	const addRow = () => {
 		setIsAutoFocus(true)
 		setItems(prev => {
@@ -41,13 +43,7 @@ export function ListAddRowInput({
 				onClick={addRow}
 				className='italic opacity-40 text-sm'
 			>
-				{language === '🇷🇺'
-					? 'Добавить задачу...'
-					: language === '🇩🇪'
-						? 'Aufgabe hinzufügen...'
-						: language === '🇨🇳'
-							? '添加任务...'
-							: 'Add task...'}
+				{translator('Add task...', language)}
 			</button>
 		</div>
 	)

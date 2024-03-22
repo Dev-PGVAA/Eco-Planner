@@ -20,7 +20,7 @@ export interface ITaskTodoResponse extends IBase {
 	isCompleted: boolean
 }
 
-export type TypeTaskFormState = Partial<
+export type TypeTaskTimeManagementFormState = Partial<
 	Omit<ITaskTimeManagementResponse, 'id' | 'updatedAt'>
 >
 export type TypeTaskTodoFormState = Partial<

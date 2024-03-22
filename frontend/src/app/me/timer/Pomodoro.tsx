@@ -19,12 +19,13 @@ import { useTodaySession } from './hooks/useTodaySession'
 import { PomodoroRounds } from './rounds/PomodoroRounds'
 import styles from './timer.module.scss'
 import { useTimer } from '@/app/me/timer/hooks/useTimer'
+import { translator } from '@/services/translate.service'
 
 export function Pomodoro() {
-	const language: string = useLanguage()
 	const timerState = useTimer()
 	const { isLoading, sessionsResponse, workInterval } =
 		useTodaySession(timerState)
+	const { language } = useLanguage()
 
 	const rounds = sessionsResponse?.data.rounds
 	const actions = useTimerActions({ ...timerState, rounds })
@@ -44,17 +45,7 @@ export function Pomodoro() {
 
 	return (
 		<>
-			<Heading
-				title={
-					language === '🇷🇺'
-						? 'Таймер'
-						: language === '🇩🇪'
-							? 'Timer'
-							: language === '🇨🇳'
-								? '计时器'
-								: 'Timer'
-				}
-			/>
+			<Heading title={translator('Timer', language)} />
 			<div className='w-full h-full flex justify-center'>
 				{isLoading ? (
 					<Loader />
@@ -99,13 +90,7 @@ export function Pomodoro() {
 									deleteSession(sessionsResponse.data.id)
 								}}
 							>
-								{language === '🇷🇺'
-									? 'Отмена'
-									: language === '🇩🇪'
-										? 'Stornieren'
-										: language === '🇨🇳'
-											? '取消'
-											: 'Cancel'}
+								{translator('Cancel', language)}
 							</button>
 							<button
 								className={cn(styles.button, styles.btn2)}
@@ -113,20 +98,8 @@ export function Pomodoro() {
 								disabled={isDeletePending}
 							>
 								{timerState.isRunning
-									? language === '🇷🇺'
-										? 'Пауза'
-										: language === '🇩🇪'
-											? 'Pause'
-											: language === '🇨🇳'
-												? '暂停'
-												: 'Pause'
-									: language === '🇷🇺'
-										? 'Старт'
-										: language === '🇩🇪'
-											? 'Start'
-											: language === '🇨🇳'
-												? '开始'
-												: 'Start'}
+									? translator('Cancel', language)
+									: translator('Start', language)}
 							</button>
 						</div>
 					</div>
@@ -136,13 +109,7 @@ export function Pomodoro() {
 						className='mt-1'
 						disabled={isPending}
 					>
-						{language === '🇷🇺'
-							? 'Создать сессию'
-							: language === '🇩🇪'
-								? 'Sitzung erstellen'
-								: language === '🇨🇳'
-									? '创建会话'
-									: 'Create session'}
+						{translator('Create session', language)}
 					</Button>
 				)}
 			</div>

@@ -22,13 +22,18 @@ export class UserService {
 		})
 	}
 
-	createRandomVerificationCode() {
+	createRandomVerificationCode(email: string) {
 		const code = crypto
 			.getRandomValues(new Uint32Array(1))[0]
 			.toString()
 			.slice(0, 6)
 
-		return Number(code)
+		this.prisma.user.update({
+			where: { email },
+			data: { verificationCode: code }
+		})
+
+		return code
 	}
 
 	async getProfile(id: string) {
@@ -36,18 +41,6 @@ export class UserService {
 
 		const totalTasks = profile.tasks.length
 		const completedTasks = await this.prisma.taskTimeManagement.count({
-			where: {
-				userId: id,
-				isCompleted: true
-			}
-		})
-
-		const todo = await this.prisma.taskTodo.count({
-			where: {
-				userId: id
-			}
-		})
-		const completedTodo = await this.prisma.taskTodo.count({
 			where: {
 				userId: id,
 				isCompleted: true
@@ -75,13 +68,13 @@ export class UserService {
 			}
 		})
 
-		const { password, ...rest } = profile
+		const { password, role, ...rest } = profile
 
 		return {
 			user: rest,
 			statistics: [
-				{ value: totalTasks + todo },
-				{ value: completedTasks + completedTodo },
+				{ value: totalTasks },
+				{ value: completedTasks },
 				{ value: todayTasks },
 				{ value: weekTasks }
 			]

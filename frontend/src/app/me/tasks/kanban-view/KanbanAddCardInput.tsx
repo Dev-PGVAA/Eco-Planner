@@ -4,6 +4,8 @@ import type { ITaskTimeManagementResponse } from '@/types/task.types'
 
 import { useLanguage } from '@/hooks/useLanguage'
 
+import { translator } from '@/services/translate.service'
+
 interface IKanbanAddCardInput {
 	filterDate?: string
 	setItems: Dispatch<SetStateAction<ITaskTimeManagementResponse[] | undefined>>
@@ -15,7 +17,8 @@ export function KanbanAddCardInput({
 	filterDate,
 	setIsAutoFocus
 }: IKanbanAddCardInput) {
-	const language: string = useLanguage()
+	const { language } = useLanguage()
+
 	const addCard = () => {
 		setIsAutoFocus(true)
 		setItems(prev => {
@@ -39,13 +42,7 @@ export function KanbanAddCardInput({
 				onClick={addCard}
 				className='italic opacity-40 text-sm'
 			>
-				{language === '🇷🇺'
-					? 'Добавить задачу...'
-					: language === '🇩🇪'
-						? 'Aufgabe hinzufügen...'
-						: language === '🇨🇳'
-							? '添加任务...'
-							: 'Add task...'}
+				{translator('Add task...', language)}
 			</button>
 		</div>
 	)
